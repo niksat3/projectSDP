@@ -1,6 +1,10 @@
 <?php
 	$add = base_url('assets/dashboard/');
     $mode = $this->session->userdata('mode');
+    $data['tambahan'] = "";
+    if(isset($tambahan)) {
+        $data['tambahan'] = $tambahan;
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,6 +27,7 @@
 
     <!--  Light Bootstrap Table core CSS    -->
     <link href="<?= $add ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="<?= $add ?>assets/js/jquery.confirm/jquery.confirm.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -61,8 +66,8 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li id="category">
-                    <a href="<?= site_url('dashboard/viewCategory') ?>">
+                <li id="kategori">
+                    <a href="<?= site_url('dashboard/viewKategori') ?>">
                         <i class="pe-7s-config pe-spin"></i>
                         <p>Category</p>
                     </a>
@@ -112,7 +117,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="<?= site_url('dashboard/logout') ?>">
                                 Log out
                             </a>
                         </li>
@@ -123,7 +128,7 @@
 			
 		<div class="content">
 			<?php
-				$this->load->view('dashboard/'.$mode);
+				$this->load->view('dashboard/'.$mode,$data);
 			?>
 		</div>
         
@@ -162,13 +167,56 @@
 	<script src="<?= $add ?>assets/js/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="<?= $add ?>assets/js/loader.js"></script>
 	<script src="<?= $add ?>assets/js/demo.js"></script>
+	<script src="<?= $add ?>assets/js/jquery.confirm/jquery.confirm.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){
+    	    var mode = "<?= $this->session->userdata('mode') ?>";
+            if(mode == "index") {
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
 
-        	demo.initChartist();
+                    // Create the data table.
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Topping');
+                    data.addColumn('number', 'Slices');
+                    data.addRows([
+                        ['aaa', 3],
+                        ['Onions', 1],
+                        ['Olives', 1],
+                        ['Zucchini', 1],
+                        ['Pepperoni', 2]
+                    ]);
 
+                    // Set chart options
+                    var options = {
+                        title: 'Approximating Normal Distribution',
+                        legend: { position: 'none' },
+                        colors: ['#4285F4'],
+
+                        chartArea: { width: 401 },
+                        hAxis: {
+                            ticks: [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]
+                        },
+                        bar: { gap: 0 },
+
+                        histogram: {
+                            bucketSize: 0.02,
+                            maxNumBuckets: 200,
+                            minValue: -1,
+                            maxValue: 1
+                        }
+                    };
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.Histogram(document.getElementById('chartHours'));
+                    chart.draw(data, options);
+                }
+            }
+			<?php if($this->session->userdata('mode') == "index"){?>
         	$.notify({
             	icon: 'pe-7s-gift',
             	message: "Welcome , <b>Admin</b>"
@@ -177,10 +225,30 @@
                 type: 'info',
                 timer: 4000
             });
-
+			<?php }?>
             $("#<?= $mode ?>").addClass('active');
 
     	});
+        function confirmbox(e){
+            var elem = e;
+
+            $.confirm({
+                'title'		: 'Delete Confirmation',
+                'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+                'buttons'	: {
+                    'Yes'	: {
+                        'class'	: 'blue',
+                        'action': function(){
+                            window.location = "<?php echo site_url();?>/dashboard/delete/"+elem;
+                        }
+                    },
+                    'No'	: {
+                        'class'	: 'gray',
+                        'action': function(){}	// Nothing to do in this case. You can as well omit the action property.
+                    }
+                }
+            });
+        }
 	</script>
 
 </html>

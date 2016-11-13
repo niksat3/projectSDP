@@ -15,8 +15,21 @@
                 'ID_KATEGORI' => $id
             ));
         }
+        public function update($id,$name){
+            $this->db->where('ID_KATEGORI',$id);
+            $this->db->update('kategori',array(
+                'NAMA_KATEGORI' => $name
+            ));
+        }
+        public function getlastID(){
+            $this->db->select_max('ID_KATEGORI');
+            return $this->db->get('kategori')->row();
+        }
         public function fetch_all(){
             return $this->db->get('kategori')->result();
+        }
+        public function get($id){
+            return $this->db->where('ID_KATEGORI',$id)->get('kategori')->row();
         }
     }
 

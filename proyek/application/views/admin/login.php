@@ -5,7 +5,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Login form using HTML5 and CSS3</title>
+    <title>Admin Panel</title>
         <link rel="stylesheet" href="<?= $add ?>css/style.css">
   </head>
 
