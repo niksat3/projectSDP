@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>The Spice Lounge</title>
+<title>The Silver Paradise</title>
 <meta name="description" content="The Spice Lounge" />
 <meta name="keywords" content="The Spice Lounge" />
 <meta name="author" content="The Spice Lounge" />
@@ -88,22 +88,38 @@
 <div class="container"><div class="row">
 				<div class="header-table col-md-12 header-menu">
         			<!--  Logo section -->
-                	<div class="brand"><a href="#home"  class="nav-link">The <span> Spice </span>Lounge</a></div>
+                	<div class="brand"><a href="#home"  class="nav-link">The <span> Silver </span>Paradise</a></div>
                     <!--  // Logo section -->
 
 		<!--  Sub Page Menu section -->
 	  <nav class="main-nav">
 						<a href="#" class="nav-toggle"></a>
 						<ul id="sub-nav" class="nav">
-				  <li><a id="home" href="" class="nav-link">Main</a></li>
-				  <li><a id="about" href="" class="nav-link">About</a></li>
-				  <li><a id="menu5" href="" class="nav-link">Menu</a></li>
-                  <li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
-				  <li><a id="event" href="" class="nav-link">Events</a></li>
-                  <li><a id="reservation" href="" class="nav-link selected">Reservation</a></li>
-				  <li><a id="contact" href="" class="nav-link">Contact</a></li>	
-				  <li><a id="login" href="" class="nav-link">Login</a></li>	
-				  <li><a id="register" href="" class="nav-link">Register</a></li>	
+						<li><a id="home" href="" class="nav-link">Main</a></li>
+						<li><a id="about" href="" class="nav-link">About</a></li>
+						<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
+						<li><a id="event" href="" class="nav-link">Events</a></li>
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="reservation" href="" class="nav-link selected">Reservation</a></li>
+						<?php } ?>
+						<li><a id="contact" href="" class="nav-link">Contact</a></li>
+						<?php 
+							if(!$this->session->userdata('user'))
+							{
+						?>
+						<li><a id="login" href="" class="nav-link">Login</a></li>	
+						<li><a id="register" href="" class="nav-link">Register</a></li>	
+						<?php } ?>	
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="logout" href="" class="nav-link">Logout</a></li>
+						<?php } ?>
 				  </ul>
 				  </nav>
                   <!--  // Sub Page Menu section -->
@@ -316,44 +332,9 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
-<script>
-	$("#home").click(function(){
-		window.location = site_url + "/Controller/";
-		return false;
-	});
-	$("#about").click(function(){
-		window.location = site_url + "/Controller/about/";
-		return false;
-	});
-	$("#menu5").click(function(){
-		window.location = site_url + "/Controller/menu/";
-		return false;
-	});
-	$("#galleryss").click(function(){
-		window.location = site_url + "/Controller/gallery/";
-		return false;
-	});
-	$("#event").click(function(){
-		window.location = site_url + "/Controller/events/";
-		return false;
-	});
-	$("#reservation").click(function(){
-		window.location = site_url + "/Controller/reservation/";
-		return false;
-	});
-	$("#contact").click(function(){
-		window.location = site_url + "/Controller/contact/";
-		return false;
-	});
-	$("#login").click(function(){
-		window.location = site_url + "/Controller/login/";
-		return false;
-	});
-	$("#register").click(function(){
-		window.location = site_url + "/Controller/register/";
-		return false;
-	});
-</script>
+<!-- Redirect -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
+<!-- Redirect End -->
 	
 
 </body>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>The Spice Lounge</title>
+<title>The Silver Paradise</title>
 <meta name="description" content="The Spice Lounge" />
 <meta name="keywords" content="The Spice Lounge" />
 <meta name="author" content="The Spice Lounge" />
@@ -94,18 +94,18 @@
 				<div class="container">
 					<div class="header_icons accura-header-block accura-hidden-2xs">
 						<ul class="accura-social-icons accura-stacked accura-jump accura-full-height accura-bordered accura-small accura-colored-bg clearFix">
-						<li id="1"><a href="http://www.facebook.com" target="_blank" class="accura-social-icon-facebook circle"><i class="fa fa-facebook"></i></a></li>
-					    <li id="2"><a href="http://www.twitter.com" target="_blank" class="accura-social-icon-twitter circle"><i class="fa fa-twitter"></i></a></li>
-					    <li id="3"><a href="http://www.googleplus.com" target="_blank" class="accura-social-icon-gplus circle"><i class="fa fa-google-plus"></i></a></li>
-					    <li id="4"><a href="https://www.pinterest.com/login/" target="_blank" class="accura-social-icon-pinterest circle"><i class="fa fa-pinterest"></i></a></li>
-						<li id="5"><a href="https://www.linkedin.com/uas/login" target="_blank" class="accura-social-icon-linkedin circle"><i class="fa fa-linkedin"></i></a></li>
+						<li id="1"><a href="<?=$facebook;?>" target="_blank" class="accura-social-icon-facebook circle"><i class="fa fa-facebook"></i></a></li>
+					    <li id="2"><a href="<?=$twitter;?>" target="_blank" class="accura-social-icon-twitter circle"><i class="fa fa-twitter"></i></a></li>
+					    <li id="3"><a href="<?=$google;?>" target="_blank" class="accura-social-icon-gplus circle"><i class="fa fa-google-plus"></i></a></li>
+					    <li id="4"><a href="<?=$pinterest;?>" target="_blank" class="accura-social-icon-pinterest circle"><i class="fa fa-pinterest"></i></a></li>
+						<li id="5"><a href="<?=$linkedin;?>" target="_blank" class="accura-social-icon-linkedin circle"><i class="fa fa-linkedin"></i></a></li>
 					  </ul>
 					</div>
 				<div class="call">
 					<div class="home_address">
-						#12 FIFTH MAIN STREET,<br> NY 10307, USA.<br>
+						<?=$address;?><br>
 					</div>
-					<i class="fa fa-phone"></i>&nbsp;&nbsp;+1 123 456 7890				</div>
+					<i class="fa fa-phone"></i><?=$phone;?></div>
 			</div>
 <!-- // Mainheader Menu Section -->
 <div class="mainheaderslide" id="slide">
@@ -116,7 +116,7 @@
         <div class="header-table col-md-12 header-menu">
         
         <!--  Logo section -->
-        <div class="brand"><a href="#home" class="nav-link">The <span> Spice </span>Lounge</a></div>
+        <div class="brand"><a href="#home" class="nav-link">The <span> Silver </span>Paradise</a></div>
         <!--  // Logo section -->
         
 <!--  Home Page Menu section -->
@@ -125,13 +125,29 @@
 							<ul id="home_nav" class="nav">
 							<li><span class="nav-link selected1">Main</span></li>
 							<li><a id="about" href="" class="nav-link">About</a></li>
-							<li><a id="menu5" href="" class="nav-link">Menu</a></li>
+							<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
 							<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
 							<li><a id="event" href="" class="nav-link">Events</a></li>
+							<?php 
+								if($this->session->userdata('user'))
+								{
+							?> 
 							<li><a id="reservation" href="" class="nav-link">Reservation</a></li>
+							<?php } ?>
 							<li><a id="contact" href="" class="nav-link">Contact</a></li>
-						    <li><a id="login" href="" class="nav-link">Login</a></li>	
-						    <li><a id="register" href="" class="nav-link">Register</a></li>		
+							<?php 
+								if(!$this->session->userdata('user'))
+								{
+							?>
+							<li><a id="login" href="" class="nav-link">Login</a></li>	
+							<li><a id="register" href="" class="nav-link">Register</a></li>	
+							<?php } ?>	
+							<?php 
+								if($this->session->userdata('user'))
+								{
+							?> 
+							<li><a id="logout" href="" class="nav-link">Logout</a></li>
+							<?php } ?>
 							</ul>
 					  </nav>
 <!-- // Home Page Menu section -->
@@ -191,7 +207,7 @@
 			<button class="close" data-dismiss="modal"><img src="<?=base_url();?>assets/img/close.png" alt=" "></button>
             <div class="modal-body">
 				<div class="spimg">
-	                <img src="<?=base_url();?>assets/img/event1.jpg" alt="..." class="img-responsive">
+	                <img src="<?=$upcoming;?>" alt="..." class="img-responsive">
 				</div>
             </div>
         </div>
@@ -206,7 +222,7 @@
             <div class="modal-body">
                 <div class="content_overlay">
 	<div class="content_text contentscroll">
-                          <h1 class="text-center">Today Special's <a href="sample.pdf" class="link"><img src="<?=base_url();?>assets/img/pdf-icon.png" title="PDF Menu to Print" alt="PDF Menu to Print"></a></h1><p>Your days specials labore et dolore magna aliquaenim amd  quis nostrud exercitation ullamco.</p> <br />
+                          <h1 class="text-center">Today Special's</h1><p>Our special menu is here! Grab your food now!</p> <br />
                           <!-- div one created -->
 <div class="pad_top30">
     <div class="toggle-container">
@@ -536,40 +552,9 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
-<script>
-	$("#about").click(function(){
-		window.location = site_url + "/Controller/about/";
-		return false;
-	});
-	$("#menu5").click(function(){
-		window.location = site_url + "/Controller/menu/";
-		return false;
-	});
-	$("#galleryss").click(function(){
-		window.location = site_url + "/Controller/gallery/";
-		return false;
-	});
-	$("#event").click(function(){
-		window.location = site_url + "/Controller/events/";
-		return false;
-	});
-	$("#reservation").click(function(){
-		window.location = site_url + "/Controller/reservation/";
-		return false;
-	});
-	$("#contact").click(function(){
-		window.location = site_url + "/Controller/contact/";
-		return false;
-	});
-	$("#login").click(function(){
-		window.location = site_url + "/Controller/login/";
-		return false;
-	});
-	$("#register").click(function(){
-		window.location = site_url + "/Controller/register/";
-		return false;
-	});
-</script>
+<!-- Redirect -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
+<!-- Redirect End -->
 
 </body>
 

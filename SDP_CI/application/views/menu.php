@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>The Spice Lounge</title>
+<title>The Silver Paradise</title>
 <meta name="description" content="The Spice Lounge" />
 <meta name="keywords" content="The Spice Lounge" />
 <meta name="author" content="The Spice Lounge" />
@@ -88,22 +88,38 @@
 <div class="container"><div class="row">
 				<div class="header-table col-md-12 header-menu">
         			<!--  Logo section -->
-                	<div class="brand"><a href="#home"  class="nav-link">The <span> Spice </span>Lounge</a></div>
+                	<div class="brand"><a href="#home"  class="nav-link">The <span> Silver </span>Paradise</a></div>
                     <!--  // Logo section -->
 
 		<!--  Sub Page Menu section -->
 	  <nav class="main-nav">
 						<a href="#" class="nav-toggle"></a>
 						<ul id="sub-nav" class="nav">
-				  <li><a id="home" href="" class="nav-link">Main</a></li>
-				  <li><a id="about" href="" class="nav-link">About</a></li>
-				  <li><a id="menu5" href="" class="nav-link selected">Menu</a></li>
-                  <li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
-				  <li><a id="event" href="" class="nav-link">Events</a></li>
-                  <li><a id="reservation" href="" class="nav-link">Reservation</a></li>
-				  <li><a id="contact" href="" class="nav-link">Contact</a></li>	
-				  <li><a id="login" href="" class="nav-link">Login</a></li>	
-				  <li><a id="register" href="" class="nav-link">Register</a></li>	
+						<li><a id="home" href="" class="nav-link">Main</a></li>
+						<li><a id="about" href="" class="nav-link">About</a></li>
+						<li><a id="menu5" href="" class="nav-link selected"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
+						<li><a id="event" href="" class="nav-link">Events</a></li>
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="reservation" href="" class="nav-link">Reservation</a></li>
+						<?php } ?>
+						<li><a id="contact" href="" class="nav-link">Contact</a></li>
+						<?php 
+							if(!$this->session->userdata('user'))
+							{
+						?>
+						<li><a id="login" href="" class="nav-link">Login</a></li>	
+						<li><a id="register" href="" class="nav-link">Register</a></li>	
+						<?php } ?>	
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="logout" href="" class="nav-link">Logout</a></li>
+						<?php } ?>
 				  </ul>
 				  </nav>
                   <!--  // Sub Page Menu section -->
@@ -134,120 +150,54 @@
 	<div class="container col-md-12">
           <div class="col-md-6 empty">&nbsp;</div>
                           <div class="col-md-6 content_text">
-                          <h1>Menu Toggle <a href="<?=base_url()?>sample.pdf" class="link"><img src="<?=base_url()?>assets/img/pdf-icon.png" title="PDF Menu to Print" alt="PDF Menu to Print"></a></h1><p class="pad_top13">All Menu's available in Toggle format, congue porta est. Nulla lobortis quis sem id feugiat.</p> <br />
+                          <h1>Our Menu</h1><p class="pad_top13">We give our best menu from the best and fresh ingredients for customer. Feel free to see our menu. You can see the picture of menu at the Gallery Tab.</p> <br />
                           <div class="clearfix">
 							<div class="main">
-<div class="clearfix">
 
 <!-- div one created -->
-<div class="pad_top50">
-    <div class="toggle-container">
-        <div class="toggle-header">
-        	<div class="toggle-link toggle-open">appetizers</div>
-        </div>
-        <div class="toggle-content">
-			<div class="pad_top20 clearfix">
-				<div class="specials-round"><h4>$&nbsp;5</h4></div>
-				<div class="specials-content" >
-					<h4>Pot Stickers (6)</h4>
-					<p>(fried dumplings filled with ground pork and vegetables)</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;7</h4></div>
-				<div class="specials-content" >
-					<h4>Satay Salads</h4>
-					<p>Choice of chicken or beef marinated in thai herbs served with peanut sauce and cucumber salad.</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;9</h4></div>
-				<div class="specials-content" >
-					<h4>Curry Puff (2)</h4>
-					<p>Puff pastry stuffed with ground chicken, onion, potatoes and currry powder with cucumber salad.</p>
-				</div>
-			</div>
-        </div>
-    </div><!--// .toggle-container end-->
-</div><!-- div one created ends here -->
-
-
-<div class="clearfix">
-    <div class="toggle-container">
-         <div class="toggle-header">
-      	  <div class="toggle-link toggle-open">Soups & Salads</div>
-        </div>
-        <div class="toggle-content">
-			<div class="pad_top20 clearfix">
-				<div class="specials-round"><h4>$&nbsp;10</h4></div>
-				<div class="specials-content" >
-					<h4>TOM YUM</h4>
-					<p>Two poached eggs, tomato sauce, three strips bacon.</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;15</h4></div>
-				<div class="specials-content" >
-					<h4>TOFU SOUP</h4>
-					<p>Hot and sour shrimp soup with lemongrass kaffir lime leaves and mushroom.</p>
-				</div>
-			</div>
-        </div>
-    </div><!--// .toggle-container end-->
-</div>
-<div class="clearfix">
-    <div class="toggle-container">
-        <div class="toggle-header">
-      	  <div class="toggle-link toggle-open">Lunch & Dinner</div>
-        </div>
-        <div class="toggle-content">
-		<div class="pad_top20 clearfix">
-			<div class="specials-round"><h4>$&nbsp;18</h4></div>
-				<div class="specials-content" >
-					<h4>TOM KHA GAI</h4>
-					<p>Aromatic chicken soup rich with coconut milk and flavored with galanga, lime leaves.</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;25</h4></div>
-					<div class="specials-content" >
-						<h4>STEAMED DUMPLING</h4>
-						<p>Stuffed with shrimp, crabmeat, chicken, shitake mushroom served with spicy soy sauce.</p>
+<div class='clearfix'>
+<?php 
+	$ctr = 0;
+	foreach ($kategori as $k)	{
+		if ($ctr == 0)	{
+			echo "<div class='pad_top50'>";
+		}
+		else {
+			echo "<div class='clearfix'>";
+		}
+		echo "
+				<div class='toggle-container'>
+					<div class='toggle-header'>
+						<div class='toggle-link toggle-open'>$k->NAMA_KATEGORI</div>
 					</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;30</h4></div>
-				<div class="specials-content" >
-					<h4>SMOKED MAPLE</h4>
-					<p>Two poached eggs, tomato sauce, three strips bacon.</p>
-				</div>
-			</div>
-		</div>
-    </div>
-</div>
-<div class="clearfix">
-    <div class="toggle-container">
-        <div class="toggle-header">
-       		 <div class="toggle-link toggle-open">Event Packages</div>
-        </div>
-    <div class="toggle-content">
-				<div class="pad_top20 clearfix">
-			<div class="specials-round"><h4>$&nbsp;175</h4></div>
-				<div class="specials-content" >
-					<h4>Night Dinner Packages</h4>
-					<p>Hot and sour shrimp soup with lemongrass kaffir lime leaves and mushroom.</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="specials-round"><h4>$&nbsp;155</h4></div>
-				<div class="specials-content" >
-					<h4>CATERING COMBO</h4>
-					<p>aromatic chicken soup rich with coconut milk and flavored with galanga, kaffir lime leaves.</p>
-				</div>
-			</div>
-    </div>
-    </div>
-</div><!-- last div ends here -->
+					<div class='toggle-content'>";
+		$ctrr = 0;
+		foreach ($menu as $m)	{
+			if ($m->ID_KATEGORI == $k->ID_KATEGORI)	{
+				if ($ctrr == 0)	{
+					echo "<div class='pad_top20 clearfix'>";
+				}
+				else	{
+					echo "<div class='clearfix'>";
+				}
+				echo "
+					<div class='specials-round'><h4>$&nbsp;$m->HARGA</h4></div>
+						<div class='specials-content' >
+							<h4>$m->NAMA_MENU</h4>
+							<p>$m->DESKRIPSI</p>
+						</div>";
+				echo "</div>";
+				$ctrr++;
+			}
+		}
+		echo "</div>";
+		echo "</div>";
+		echo "</div>";
+		$ctr++;
+	}
+
+?><!-- div one created ends here -->
+
 <div class="clearfix"></div>
 </div>
 </div>
@@ -400,44 +350,9 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
-<script>
-	$("#home").click(function(){
-		window.location = site_url + "/Controller/";
-		return false;
-	});
-	$("#about").click(function(){
-		window.location = site_url + "/Controller/about/";
-		return false;
-	});
-	$("#menu5").click(function(){
-		window.location = site_url + "/Controller/menu/";
-		return false;
-	});
-	$("#galleryss").click(function(){
-		window.location = site_url + "/Controller/gallery/";
-		return false;
-	});
-	$("#event").click(function(){
-		window.location = site_url + "/Controller/events/";
-		return false;
-	});
-	$("#reservation").click(function(){
-		window.location = site_url + "/Controller/reservation/";
-		return false;
-	});
-	$("#contact").click(function(){
-		window.location = site_url + "/Controller/contact/";
-		return false;
-	});
-	$("#login").click(function(){
-		window.location = site_url + "/Controller/login/";
-		return false;
-	});
-	$("#register").click(function(){
-		window.location = site_url + "/Controller/register/";
-		return false;
-	});
-</script>
+<!-- Redirect -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
+<!-- Redirect End -->
 	
 
 </body>

@@ -32,28 +32,8 @@ jQuery(document).ready(function($){
 					slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
 					thumb_links				:	1,			// Individual thumb links for each slide
 					thumbnail_navigation    :   0,			// Thumbnail navigation
-					slides 					:  	[			// Slideshow Images
-														{image : url + '/assets/img/1.jpg', title : 'My Food', thumb : url + '/assets/img/1.jpg'//, url : 'http://www.nonsensesociety.com/2011/04/maria-kazvan/'
-														},
-														{image : url + '/assets/img/2.jpg', title : 'Food', thumb : url + '/assets/img/2.jpg'//, url : 'http://www.nonsensesociety.com/2011/04/maria-kazvan/'
-														},
-														{image : url + '/assets/img/4a.jpg', title : 'Food', thumb : url + '/assets/img/4a.jpg'//, url : 'http://www.nonsensesociety.com/2011/04/maria-kazvan/'
-														},  
-														{image : url + '/assets/img/5.jpg', title : 'Food', thumb : url + '/assets/img/5.jpg'//, url : 'http://www.nonsensesociety.com/2011/04/maria-kazvan/'
-														},
-														{image : url + '/assets/img/18.jpg', title : 'Bars', thumb : url + '/assets/img/18.jpg'//, url : 'http://www.nonsensesociety.com/2011/03/colin/'
-														},
-														{image :url + '/assets/img/19.jpg', title : 'Events', thumb : url + '/assets/img/19.jpg'//, url : 'http://www.nonsensesociety.com/2011/03/colin/'
-														},
-														{image : url + '/assets/img/4.jpg', title : 'Food', thumb : url + '/assets/img/4.jpg'//, url : 'http://www.nonsensesociety.com/2011/03/colin/'
-														},
-														{image : url + '/assets/img/8a.jpg', title : 'Dining', thumb : url + '/assets/img/8a.jpg'//, url : 'http://www.nonsensesociety.com/2011/06/brooke-shaden/'
-														},
-														{image : url + '/assets/img/17.jpg', title : 'Cheff', thumb : url + '/assets/img/17.jpg'//, url : 'http://www.nonsensesociety.com/2011/06/brooke-shaden/'
-														},
-														{image : url + '/assets/img/7.jpg', title : 'Food', thumb : url + '/assets/img/7.jpg'//, url : 'http://www.nonsensesociety.com/2011/06/brooke-shaden/'
-														}
-												],
+					slides 					:  	gallery		// Slideshow Images
+												,
 												
 					// Theme Options			   
 					progress_bar			:	1,			// Timer for each slide							

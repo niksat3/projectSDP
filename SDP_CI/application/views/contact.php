@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>The Spice Lounge</title>
+<title>The Silver Paradise</title>
 <meta name="description" content="The Spice Lounge" />
 <meta name="keywords" content="The Spice Lounge" />
 <meta name="author" content="The Spice Lounge" />
@@ -88,22 +88,38 @@
 <div class="container"><div class="row">
 				<div class="header-table col-md-12 header-menu">
         			<!--  Logo section -->
-                	<div class="brand"><a href="#home"  class="nav-link">The <span> Spice </span>Lounge</a></div>
+                	<div class="brand"><a href="#home"  class="nav-link">The <span> Silver </span>Paradise</a></div>
                     <!--  // Logo section -->
 
 		<!--  Sub Page Menu section -->
 	  <nav class="main-nav">
 						<a href="#" class="nav-toggle"></a>
 						<ul id="sub-nav" class="nav">
-				  <li><a id="home" href="" class="nav-link">Main</a></li>
-				  <li><a id="about" href="" class="nav-link">About</a></li>
-				  <li><a id="menu5" href="" class="nav-link">Menu</a></li>
-                  <li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
-				  <li><a id="event" href="" class="nav-link">Events</a></li>
-                  <li><a id="reservation" href="" class="nav-link">Reservation</a></li>
-				  <li><a id="contact" href="" class="nav-link selected">Contact</a></li>	
-				  <li><a id="login" href="" class="nav-link">Login</a></li>	
-				  <li><a id="register" href="" class="nav-link">Register</a></li>	
+						<li><a id="home" href="" class="nav-link">Main</a></li>
+						<li><a id="about" href="" class="nav-link">About</a></li>
+						<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
+						<li><a id="event" href="" class="nav-link">Events</a></li>
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="reservation" href="" class="nav-link">Reservation</a></li>
+						<?php } ?>
+						<li><a id="contact" href="" class="nav-link selected">Contact</a></li>
+						<?php 
+							if(!$this->session->userdata('user'))
+							{
+						?>
+						<li><a id="login" href="" class="nav-link">Login</a></li>	
+						<li><a id="register" href="" class="nav-link">Register</a></li>	
+						<?php } ?>	
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="logout" href="" class="nav-link">Logout</a></li>
+						<?php } ?>
 				  </ul>
 				  </nav>
                   <!--  // Sub Page Menu section -->
@@ -124,6 +140,7 @@
 =============================-->
 
 		<div id="contact" class="item">
+			<img src="<?=base_url();?>assets/img/19.jpg"  alt="the Paxton Gipsy Hill"  class="fullBg">
 			<div class="content">
                                <div id="map_canvas" class="fullBg"></div>
 				<div class="content_overlay"></div>
@@ -137,20 +154,20 @@
 			<div class="clearfix pad_top20">
 					<h2 class="clearfix address">
 						<span class="left"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;</span>
-						<span class="left"> #12 Fifth main street, NY 10307, USA</span>
+						<span class="left"><?=$address;?></span>
 					</h2>
-				<div class="phone"><i class="fa fa-phone"></i>&nbsp;&nbsp;+ 1 123 456 7890</div>
+				<div class="phone"><i class="fa fa-phone"></i><?=$phone;?></div>
 				<a href="mailto:info@thespicelounge.com" class="mail-text">
-					<i class="fa fa-envelope"></i>info@thespicelounge.com
+					<i class="fa fa-envelope"></i><?=$email;?>
 				</a>
 				<div class="clearfix">
 				<div class="header_icons accura-header-block accura-hidden-2xs social_top">
 					<ul class="accura-social-icons accura-stacked accura-jump accura-full-height accura-bordered accura-small accura-colored-bg clearFix">
-					    <li><a href="http://www.facebook.com" target="_blank" class="accura-social-icon-facebook circle"><i class="fa fa-facebook"></i></a></li>
-					    <li><a href="http://www.twitter.com" target="_blank" class="accura-social-icon-twitter circle"><i class="fa fa-twitter"></i></a></li>
-					    <li><a href="http://www.googleplus.com" target="_blank" class="accura-social-icon-gplus circle"><i class="fa fa-google-plus"></i></a></li>
-					    <li><a href="https://www.pinterest.com/login/" target="_blank" class="accura-social-icon-pinterest circle"><i class="fa fa-pinterest"></i></a></li>
-						<li><a href="https://www.linkedin.com/uas/login" target="_blank" class="accura-social-icon-linkedin circle"><i class="fa fa-linkedin"></i></a></li>
+					    <li><a href="<?=$facebook;?>" target="_blank" class="accura-social-icon-facebook circle"><i class="fa fa-facebook"></i></a></li>
+					    <li><a href="<?=$twitter;?>" target="_blank" class="accura-social-icon-twitter circle"><i class="fa fa-twitter"></i></a></li>
+					    <li><a href="<?=$googleplus;?>" target="_blank" class="accura-social-icon-gplus circle"><i class="fa fa-google-plus"></i></a></li>
+					    <li><a href="<?=$pinterest;?>" target="_blank" class="accura-social-icon-pinterest circle"><i class="fa fa-pinterest"></i></a></li>
+						<li><a href="<?=$linkedin;?>" target="_blank" class="accura-social-icon-linkedin circle"><i class="fa fa-linkedin"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -313,9 +330,6 @@
 <!-- Cycle Slider Gallery End-->
 
 <!--SuperSized Gallery-->
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.3.2.7.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.shutter.min.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized_custom.js"></script>
 <!--SuperSized Gallery End-->
 
 <!-- Filter Gallery And PrettyPhoto-->
@@ -356,44 +370,9 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
-<script>
-	$("#home").click(function(){
-		window.location = site_url + "/Controller/";
-		return false;
-	});
-	$("#about").click(function(){
-		window.location = site_url + "/Controller/about/";
-		return false;
-	});
-	$("#menu5").click(function(){
-		window.location = site_url + "/Controller/menu/";
-		return false;
-	});
-	$("#galleryss").click(function(){
-		window.location = site_url + "/Controller/gallery/";
-		return false;
-	});
-	$("#event").click(function(){
-		window.location = site_url + "/Controller/events/";
-		return false;
-	});
-	$("#reservation").click(function(){
-		window.location = site_url + "/Controller/reservation/";
-		return false;
-	});
-	$("#contact").click(function(){
-		window.location = site_url + "/Controller/contact/";
-		return false;
-	});
-	$("#login").click(function(){
-		window.location = site_url + "/Controller/login/";
-		return false;
-	});
-	$("#register").click(function(){
-		window.location = site_url + "/Controller/register/";
-		return false;
-	});
-</script>
+<!-- Redirect -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
+<!-- Redirect End -->
 	
 
 </body>

@@ -192,7 +192,9 @@
                     </table>
                   </body>
                 </html>');
-            $this->email->send();
+            if($this->email->send())
+				return true;
+			else return false;
         }
     }
 

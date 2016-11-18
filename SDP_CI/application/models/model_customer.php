@@ -28,20 +28,35 @@
             $pass = crypt(md5($pass),$key);
             $auth = crypt(md5($user),$key);
             $this->load->model('model_email');
-            $this->model_email->sendEmail($email,$user,$auth);
-
-            $this->db->insert('customer',array(
-                'USERNAME_CUSTOMER' => $user,
-                'PASSWORD_CUSTOMER' => $pass,
-                'EMAIL_CUSTOMER' => $email,
-                'AUTH_KEY' => $auth,
-                'NAMA_CUSTOMER' => $nama,
-                'ALAMAT_CUSTOMER' => $alamat,
-                'KOTA_CUSTOMER' => $kota,
-                'NO_TELP_CUSTOMER' => $notelp,
-                'STATUS_CUSTOMER' => 0
-            ));
+			if($this->model_email->sendEmail($email,$user,$auth))
+			{
+				$this->db->insert('customer',array(
+					'USERNAME_CUSTOMER' => $user,
+					'PASSWORD_CUSTOMER' => $pass,
+					'EMAIL_CUSTOMER' => $email,
+					'AUTH_KEY' => $auth,
+					'NAMA_CUSTOMER' => $nama,
+					'ALAMAT_CUSTOMER' => $alamat,
+					'KOTA_CUSTOMER' => $kota,
+					'NO_TELP_CUSTOMER' => $notelp,
+					'STATUS_CUSTOMER' => 0
+				));
+			}
         }
+		public function login($user,$pass)
+		{
+			$key = "nasiayamgoreng";
+			$datas = $this->fetch_all();
+			$login = true;
+			foreach($datas as $data)
+			{
+				if($data->USERNAME_CUSTOMER==$user and $data->PASSWORD_CUSTOMER==crypt(md5($pass),$key))
+				{
+					return $data;
+				}
+			}
+			return null;
+		}
         public function update($id,$name,$alamat,$kota,$notelp){
             $this->db->where('ID_CUSTOMER',$id);
             $this->db->update('customer',array(

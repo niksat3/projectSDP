@@ -4,12 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>The Spice Lounge</title>
+<title>The Silver Paradise</title>
 <meta name="description" content="The Spice Lounge" />
 <meta name="keywords" content="The Spice Lounge" />
 <meta name="author" content="The Spice Lounge" />
 
 <!-- Loading Google Web fonts-->
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 
@@ -88,22 +89,38 @@
 <div class="container"><div class="row">
 				<div class="header-table col-md-12 header-menu">
         			<!--  Logo section -->
-                	<div class="brand"><a href="#home"  class="nav-link">The <span> Spice </span>Lounge</a></div>
+                	<div class="brand"><a href="#home"  class="nav-link">The <span> Silver </span>Paradise</a></div>
                     <!--  // Logo section -->
 
 		<!--  Sub Page Menu section -->
 	  <nav class="main-nav">
 						<a href="#" class="nav-toggle"></a>
 						<ul id="sub-nav" class="nav">
-				  <li><a id="home" href="" class="nav-link">Main</a></li>
-				  <li><a id="about" href="" class="nav-link">About</a></li>
-				  <li><a id="menu5" href="" class="nav-link">Menu</a></li>
-                  <li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
-				  <li><a id="event" href="" class="nav-link">Events</a></li>
-                  <li><a id="reservation" href="" class="nav-link">Reservation</a></li>
-				  <li><a id="contact" href="" class="nav-link">Contact</a></li>	
-				  <li><a id="login" href="" class="nav-link">Login</a></li>	
-				  <li><a id="register" href="" class="nav-link selected">Register</a></li>	
+						<li><a id="home" href="" class="nav-link">Main</a></li>
+						<li><a id="about" href="" class="nav-link">About</a></li>
+						<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
+						<li><a id="event" href="" class="nav-link">Events</a></li>
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="reservation" href="" class="nav-link">Reservation</a></li>
+						<?php } ?>
+						<li><a id="contact" href="" class="nav-link">Contact</a></li>
+						<?php 
+							if(!$this->session->userdata('user'))
+							{
+						?>
+						<li><a id="login" href="" class="nav-link">Login</a></li>	
+						<li><a id="register" href="" class="nav-link selected">Register</a></li>	
+						<?php } ?>	
+						<?php 
+							if($this->session->userdata('user'))
+							{
+						?> 
+						<li><a id="logout" href="" class="nav-link">Logout</a></li>
+						<?php } ?>
 				  </ul>
 				  </nav>
                   <!--  // Sub Page Menu section -->
@@ -136,56 +153,52 @@
                           <div class="col-md-6 content_text">
                           <div id="registration">
                            <h1>Register</h1>
-                           <form id="register_form" class="reg_form pad_top13" action="#" method="post">
+						   <?php 
+								$attributes = array('class' => 'reg_form pad_top13', 'id' => 'register_form'); 
+								echo form_open('Controller/register',$attributes);
+						   ?>
 			<p>Register now for delivery and reservation services.</p><br>
 			<h4>Username</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="username" class="validate['required'] textbox1" placeholder="* Name : "
-                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Name :'" />
+				<input type="text" id="username" name="username" class="validate['required'] textbox1" placeholder="* Username : "
+                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Username :'" />
                 </div>
-				<!--input type="text" name="email"  class="validate['required','email']  textbox1"
-                    placeholder="* Email : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Email :'" />
-				<input type="text" name="phone" class="validate['required','phone']  textbox1"
-                    placeholder="* Phone : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Phone :'" />
-				<textarea name="message" class="validate['required'] messagebox1"
-                    placeholder="* Message : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Message :'"></textarea>
-				<input id="submitBtn" value="book a table" name="Confirm" type="submit" class="submitBtn"-->
 			<h4>Password</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="password" name="password" class="validate['required'] textbox1" placeholder="* Password : "
+				<input type="password" id="password" name="password" class="validate['required'] textbox1" placeholder="* Password : "
                     onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Password :'" />
                 </div>
 			<h4>Confirm Password</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="password" name="confirm_password" class="validate['required'] textbox1" placeholder="* Confirm Password : "
-                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Confirm Password :'" />
+				<input type="password" id="confirm_password" name="confirm_password" class="validate['required'] textbox1" placeholder="* Confirm Password : "
+                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Confirm Password :'" onchange="myFunction()" />
                 </div>
 			<h4>Email</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="email"  class="validate['required','email']  textbox1"
+				<input type="text" id="email" name="email"  class="validate['required','email']  textbox1"
                     placeholder="* Email : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Email :'" />
                 </div>
 			<h4>Name</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="name" class="validate['required'] textbox1" placeholder="* Name : "
+				<input type="text" id="name" name="name" class="validate['required'] textbox1" placeholder="* Name : "
                     onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Name :'" />
                 </div>
 			<h4>Address</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="address" class="validate['required'] textbox1" placeholder="* Address : "
-                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Address :'" />
+				<input type="text" id="address" name="address" class="validate['required'] textbox1" placeholder="* Address : "
+                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Address :'" onFocus="geolocate()"/>
                 </div>
 			<h4>City</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="city" class="validate['required'] textbox1" placeholder="* City : "
+				<input type="text" id="city" name="city" class="validate['required'] textbox1" placeholder="* City : "
                     onfocus="this.placeholder = ''" onBlur="this.placeholder = '* City :'" />
                 </div>
 			<h4>Phone</h4>
 			<div class="clearfix reserve_form"> 
-				<input type="text" name="phone" class="validate['required','phone']  textbox1"
+				<input type="text" id="phone" name="phone" class="validate['required','phone']  textbox1"
                     placeholder="* Phone : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Phone :'" />
                 </div>
-				<input id="submitBtn" value="Register" name="Register" type="submit" class="submitBtn"-->
+				<input id="submitBtn" value="Register" name="Register" type="submit" class="submitBtn" onclick='return isValidForm()'/>
 				</form>
 	</div>
                           </div>
@@ -342,44 +355,153 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
+<!-- Notification -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/notify.min.js"></script>
+<!-- Notification End -->
+
+<!-- Redirect -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
+<!-- Redirect End -->
+
 <script>
-	$("#home").click(function(){
-		window.location = site_url + "/Controller/";
-		return false;
-	});
-	$("#about").click(function(){
-		window.location = site_url + "/Controller/about/";
-		return false;
-	});
-	$("#menu5").click(function(){
-		window.location = site_url + "/Controller/menu/";
-		return false;
-	});
-	$("#galleryss").click(function(){
-		window.location = site_url + "/Controller/gallery/";
-		return false;
-	});
-	$("#event").click(function(){
-		window.location = site_url + "/Controller/events/";
-		return false;
-	});
-	$("#reservation").click(function(){
-		window.location = site_url + "/Controller/reservation/";
-		return false;
-	});
-	$("#contact").click(function(){
-		window.location = site_url + "/Controller/contact/";
-		return false;
-	});
-	$("#login").click(function(){
-		window.location = site_url + "/Controller/login/";
-		return false;
-	});
-	$("#register").click(function(){
-		window.location = site_url + "/Controller/register/";
-		return false;
-	});
+	function isValidForm() {
+		var formvalid = true;
+		$('.notifyjs-corner').empty();
+		$('.notifyjs-container').empty();
+		var re1 = /^\w+$/;
+		if($('#username').val()=="") 
+		{
+			$('#username').notify("Username can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		else if(!re1.test($('#username').val()))
+		{
+			$('#username').notify("Username must contain only letters, numbers and underscores", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		re2 = /[0-9]/;
+		re3 = /[a-z]/;
+		re4 = /[A-Z]/;
+		if($('#password').val()=="")
+		{
+			$('#password').notify("Password can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		else if(!re2.test($('#password').val()) || !re3.test($('#password').val()) || !re4.test($('#password').val()) || $('#password').val()<6)
+		{
+			$('#password').notify("Passwords must contain at least six characters, including uppercase, lowercase letters and numbers", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		var re5 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if($('#email').val()=="")
+		{
+			$('#email').notify("Email can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		else if(!re5.test($('#email').val()))
+		{
+			$('#email').notify("Not a valid email address", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if($('#name').val()=="") 
+		{
+			$('#name').notify("Name can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if($('#address').val()=="")
+		{
+			$('#address').notify("Address can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if($('#city').val()=="")
+		{
+			$('#city').notify("City can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if($('#phone').val()=="") 
+		{
+			$('#phone').notify("Phone can't be empty", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if($('#confirm_password').val()!=$('#password').val())
+		{
+			$('#confirm_password').notify("Confirmation Password isn't same with Password", { elementPosition: 'bottom right', autoHide: false });
+			formvalid = false;
+		}
+		if(!formvalid) $.notify('Registration not valid, please check your form');
+		return formvalid;
+	}
 </script>
+<script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('address')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2rR3uSM7GuI0Hk1srixPtngtn4nT-cfo&libraries=places&callback=initAutocomplete"
+        async defer></script>
 	
 
 </body>
