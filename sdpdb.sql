@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2016 at 03:46 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Nov 30, 2016 at 03:22 AM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `projectsdp`
+-- Database: `sdpdb`
 --
 CREATE DATABASE IF NOT EXISTS `sdpdb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `sdpdb`;
@@ -32,9 +32,30 @@ DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
   `ID_BOOKING` int(11) NOT NULL,
   `ID_CUSTOMER` int(11) NOT NULL,
-  `ID_MEJA` int(11) NOT NULL,
-  `TANGGAL_BOOKING` date NOT NULL
+  `ID_MEJA` int(11) DEFAULT NULL,
+  `TANGGAL_BOOKING` datetime NOT NULL,
+  `QTY` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`ID_BOOKING`, `ID_CUSTOMER`, `ID_MEJA`, `TANGGAL_BOOKING`, `QTY`) VALUES
+(1, 2, 0, '2016-11-08 04:20:55', 2),
+(3, 2, 0, '2016-11-02 05:25:40', 2),
+(4, 2, 0, '2016-11-21 02:25:18', 2),
+(5, 2, 0, '2016-11-10 02:50:47', 2),
+(6, 2, 0, '2016-11-09 09:45:51', 2),
+(7, 2, 0, '2016-11-09 09:45:21', 2),
+(8, 2, 0, '2016-10-31 04:20:13', 2),
+(9, 2, 0, '2016-11-07 04:20:47', 2),
+(10, 2, 0, '2016-11-07 04:20:47', 2),
+(11, 2, 0, '2016-11-02 05:25:45', 2),
+(12, 2, 0, '2016-11-08 04:20:08', 2),
+(13, 2, 0, '2016-11-09 09:45:50', 2),
+(14, 2, 0, '2016-11-10 09:45:21', 2),
+(15, 2, 0, '2016-11-08 04:30:12', 2);
 
 -- --------------------------------------------------------
 
@@ -66,7 +87,8 @@ INSERT INTO `content_website` (`ID_CONTENT`, `ISI_CONTENT`, `SHOW_CONTENT`) VALU
 ('LINK_PINTEREST', 'https://www.pinterest.com/login/', 1),
 ('LINK_TWITTER', 'http://www.twitter.com', 1),
 ('PHONE_CONTACT', '&nbsp;&nbsp;+ 1 123 456 7890', 1),
-('UPCOMING_EVENTS', '<?=base_url();?>/assets/img/event1.jpg', 1);
+('UPCOMING_EVENTS', '<?=base_url();?>/assets/img/event1.jpg', 1),
+('ICON', 'assets/img/Untitled-1.ico', 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +131,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`ID_CUSTOMER`, `USERNAME_CUSTOMER`, `PASSWORD_CUSTOMER`, `EMAIL_CUSTOMER`, `AUTH_KEY`, `NAMA_CUSTOMER`, `ALAMAT_CUSTOMER`, `KOTA_CUSTOMER`, `NO_TELP_CUSTOMER`, `STATUS_CUSTOMER`) VALUES
-(1, 'effendy', 'effendy', 'tancejang@gmail.com', 'asd7f89a7sd98f79adsas8df798dsa7f9', 'Effendy Hadi Sutanto', 'Jl Darmo', 'Surabaya', '01239123', 1);
+(1, 'effendy', 'effendy', 'tancejang@gmail.com', 'asd7f89a7sd98f79adsas8df798dsa7f9', 'Effendy Hadi Sutanto', 'Jl Darmo', 'Surabaya', '01239123', 1),
+(2, 'Asd', 'na5DMaz53MAA6', 'satrijoniklas@yahoo.com', 'naCaUAzJEXS8c', 'Bernard Niklas S.', 'Jl. Dr. Wahidin 30, Surabaya', 'Surabaya', '081938529999', 1);
 
 -- --------------------------------------------------------
 
@@ -154,6 +177,14 @@ CREATE TABLE `gallery` (
   `STATUS` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`ID_GALLERY`, `LINK_GALLERY`, `NAME_GALLERY`, `SHOW_GALLERY`, `STATUS`) VALUES
+(1, 'assets/img/cooking_competition.jpg', 'Cooking Competition Final', 1, 1),
+(2, 'assets/img/cooking_competition_food.jpg', 'Cooking Competition Food from Contestant', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -167,6 +198,14 @@ CREATE TABLE `gallery_home` (
   `SHOW_GALLERY_HOME` int(1) NOT NULL,
   `STATUS` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gallery_home`
+--
+
+INSERT INTO `gallery_home` (`ID_GALLERY_HOME`, `LINK_GALLERY_HOME`, `SHOW_GALLERY_HOME`, `STATUS`) VALUES
+(1, 'assets/img/1.jpg', 1, 1),
+(2, 'assets/img/20.jpg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -201,8 +240,10 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`ID_KATEGORI`, `NAMA_KATEGORI`) VALUES
-(7, 'Makanan'),
-(8, 'Minuman');
+(1, 'appetizers'),
+(2, 'Soups & Salads'),
+(3, 'Lunch & Dinner'),
+(4, 'Event Packages');
 
 -- --------------------------------------------------------
 
@@ -228,14 +269,20 @@ CREATE TABLE `menu` (
   `ID_MENU` int(6) NOT NULL,
   `ID_KATEGORI` int(3) NOT NULL,
   `NAMA_MENU` varchar(100) DEFAULT NULL,
+  `LINK_PICTURE` varchar(255) NOT NULL,
   `HARGA` int(7) DEFAULT NULL,
   `DESKRIPSI` varchar(100) DEFAULT NULL,
   `STATUS_MENU` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `menu` (`ID_MENU`, `ID_KATEGORI`, `NAMA_MENU`, `HARGA`, `DESKRIPSI`, `STATUS_MENU`) VALUES
-(1, 7, 'Nasi Goreng Enak', 100000, 'Enak Sekali', 1),
-(2, 7, 'Es Teh', 3000, 'Enak Seger Nikmat Sekali', 1),
-(3, 8, 'Es Jeruk', 10000, 'You Don''t Say', 1);
+
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`ID_MENU`, `ID_KATEGORI`, `NAMA_MENU`, `LINK_PICTURE`, `HARGA`, `DESKRIPSI`, `STATUS_MENU`) VALUES
+(1, 1, 'Satay Salads', 'assets/img/1.jpg', 35000, 'Choice of chicken or beef marinated in thai herbs served with peanut sauce and cucumber salad.', 1),
+(2, 1, 'Curry Puff', 'assets/img/20.jpg', 27500, 'Puff pastry stuffed with ground chicken, onion, potatoes and currry powder with cucumber salad.', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -270,6 +317,15 @@ CREATE TABLE `opening_hours` (
   `STATUS` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `opening_hours`
+--
+
+INSERT INTO `opening_hours` (`ID_OPENING_HOURS`, `DAY_OPENED`, `TIME_OPENED`, `SHOW_OPENING_HOURS`, `STATUS`) VALUES
+(1, 'MON - FRI', '9:00am - 4:00pm', 1, 1),
+(2, 'SAT', '9:00am - 2:00pm', 1, 1),
+(3, 'SUN', '8:30am - 1:00pm', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -285,10 +341,7 @@ CREATE TABLE `promo` (
   `ID_MENU` int(6) DEFAULT NULL,
   `STATUS_PROMO` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `promo` (`ID_PROMO`, `NAMA_PROMO`, `DESKRIPSI_PROMO`, `POTONGAN_HARGA`, `ID_MENU`, `STATUS_PROMO`) VALUES
-(1, 'DISKON 50', 'diskon 50% buat ayam', 50000, 1, 0),
-(2, 'DISKON 25', '200000', 1000, 1, 1),
-(3, 'DISKON 10%', 'murah', 1000, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -312,12 +365,6 @@ CREATE TABLE `today_special_header` (
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`ID_BOOKING`);
-
---
--- Indexes for table `content_website`
---
-ALTER TABLE `content_website`
-  ADD PRIMARY KEY (`ID_CONTENT`);
 
 --
 -- Indexes for table `courier`
@@ -416,7 +463,7 @@ ALTER TABLE `today_special_header`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `ID_BOOKING` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_BOOKING` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `courier`
 --
@@ -426,17 +473,17 @@ ALTER TABLE `courier`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID_CUSTOMER` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_CUSTOMER` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `ID_GALLERY` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_GALLERY` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `gallery_home`
 --
 ALTER TABLE `gallery_home`
-  MODIFY `ID_GALLERY_HOME` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_GALLERY_HOME` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `h_transaksi`
 --
@@ -446,7 +493,7 @@ ALTER TABLE `h_transaksi`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `ID_KATEGORI` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_KATEGORI` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `meja`
 --
@@ -456,7 +503,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `ID_MENU` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_MENU` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `news_events`
 --
@@ -466,7 +513,7 @@ ALTER TABLE `news_events`
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `ID_OPENING_HOURS` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_OPENING_HOURS` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `promo`
 --

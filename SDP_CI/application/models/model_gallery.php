@@ -7,7 +7,7 @@
         }
         public function update($id,$isi,$show){
             $this->db->where('ID_CONTENT',$id);
-            $this->db->update('content_website',array(
+            $this->db->update('gallery',array(
                 'ISI_CONTENT' => $isi,
                 'SHOW_CONTENT' => $show
             ));

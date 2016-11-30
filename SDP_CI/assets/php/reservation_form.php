@@ -1,52 +1,59 @@
 <?php
 
- 
-//Prefedined Variables  
-$to = "checkingforms@yahoo.com";
-
-// Email Subject
-$subject = "Contact from your website.";
-
-
 // This IF condition is for improving security  and Prevent Direct Access to the Mail Script.
 if($_POST) {
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "sdpdb";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 
 // Collect POST data from form
+$id = stripslashes($_POST['id']);
 $name = stripslashes($_POST['name']);
 $email = stripslashes($_POST['email']);
 $phone = stripslashes($_POST['phone']);
-$message= stripslashes($_POST['message']);
+$amount = stripslashes($_POST['amount']);
+$message = stripslashes($_POST['message']);
+$date = stripslashes($_POST['date']);
 
-// Collecting all content in HTML Table
-$content='<table width="100%">
-<tr><td  align "center"><b>Contact Details</b></td></tr>
-<tr><td>Name:</td><td> '.$name.'</td></tr>
-<tr><td>Email:</td><td> '.$email.' </td></tr>
-<tr><td>Subject:</td><td> '.$phone.'</td></tr>
-<tr><td>Message:</td> <td> '.$message.'</td></tr>
-<tr><td>Date:</td> <td> '.date('d/m/Y').'</td></tr>
-</table> ';
+$sql = "INSERT INTO booking VALUES (''," . $id . ",'',STR_TO_DATE('" . $date . "','%Y-%m-%d %r')," . $amount . ")";
 
+$can = true;
+$to = $email;
+$subject = "Reservation Confirmation";
+$txt = "Hello world!";
+$headers = 'From: silverparadise22@gmail.com' . "\r\n" .
+        'Reply-To: dhamaal_xxxx@yahoo.in' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
-// Define email variables
-$headers = "From:".$email."\r\n";
-$headers .= "Reply-to:".$email."\r\n";
-$headers .= 'Content-type: text/html; charset=UTF-8';
-
-if( ! empty($name) && ! empty($email) && ! empty($content) ) {
-
-// Sending Email 
-if( mail($to, $subject, $content, $headers) ) {
-print "<p>Thank you, we will getback to you shortly</p><br>";
-return true;
+if($conn->query($sql) === TRUE and mail($to,$subject,$txt,$headers)) {
+print "<p>Thank you, your reservation is ready.</p><br>";
+$can = true;
 }
 else {
-print "<p>Some errors to send the mail.</p>";
-return false;
+print "<p>Error, can't reserve.</p>";
+$can = false;
 }
 }
 else {
-print "<p>Some errors to send the mail.</p>";
-return false;
+print "<p>Error, can't reserve.</p>";
+$can = false;
 }
-}
+print "<input type='submit' class='submitBtn2' value='Back to Home' style='clear:none'/>";
+print "
+	<script type='text/javascript'>
+	$('.submitBtn2').click(function()
+	{
+		window.location = site_url + '/Controller/';
+		return false;
+	});
+	</script>
+";
+return $can;

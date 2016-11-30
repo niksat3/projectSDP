@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/font-awesome.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/animate.min.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/style.css" type="text/css" />
+<link rel="stylesheet" href="<?=base_url();?>assets/css/jquery-ui.css" type="text/css" />
 
 <!--Menu-->
 <link rel="stylesheet" href="<?=base_url();?>assets/css/menu.css" type="text/css" />
@@ -54,13 +55,56 @@
 <!--Color Change-->
 <link rel="stylesheet" href="<?=base_url();?>assets/css/colors/color1.css" id="color" type="text/css" />
 <!--Color Change End-->
+<style>
+	hr {
+		border-top: 1px solid #ccc;
+	}
+
+	#cartcontent {
+		font-size: 16px;
+	}
+	#cartleft {
+		width:60%;
+		float:left;
+		padding: 10px;
+		border: 1px solid rgba(0,0,0,0.2);
+	}
+	#cartright {
+		width:28%;
+		float:right;
+		padding: 10px;
+		border: 1px solid rgba(0,0,0,0.2);
+	}
+	@media(max-width: 601px){
+		#cartleft span{
+			clear:both;
+		}
+	}
+	@media(max-width: 452px){
+		#cartleft, #cartright {
+			margin-top: 25px;
+			width:100%;
+			float:none;
+		}
+	}
+</style>
 
 <script src="<?=base_url();?>assets/js/jquery-1.11.1.min.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-migrate-1.2.1.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/modernizr.custom.js"></script>
-
-	
+<script>
+	$( function() {
+		$(document).ready(function(){
+			$('.specials-round').tooltip({
+				position: {
+					tooltipClass: "info-tooltip"
+				}
+			});
+		});
+	} );
+</script>
+<?php date_default_timezone_set('Asia/Jakarta'); ?>
 </head>
 
 <body>
@@ -104,7 +148,7 @@
 							}
 						?>
 						</li>
-						<li><a id="galleryss" href="" class="nav-link selected">Gallery</a></li>	
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
 						<li><a id="event" href="" class="nav-link">Events</a></li>
 						<?php 
 							if($this->session->userdata('user'))
@@ -130,7 +174,7 @@
 							{
 						?> 
 						<li><a id="logout" href="" class="nav-link">Logout</a></li>
-						<li><a id="cart" href="" class="nav-link"><img id='cartimg' src="<?=base_url();?>assets/img/cart.png" width='25px' /></a></li>
+						<li><a id="cart" href="" class="nav-link selected"><img id='cartimg' src="<?=base_url();?>assets/img/cart2.png" width='25px' /></a></li>
 						<?php } ?>
 				  </ul>
 				  </nav>
@@ -148,73 +192,118 @@
 =============================-->
 
 
-<!-- Gallery  SS
+
+<!--Menu Toggle 
 =============================--> 
 
-<div id="galleryss" class="item">
+<div id="cart" class="item">
+			<img src="<?=base_url()?>assets/img/2.jpg" alt="The Spice Lounge" class="fullBg">
+			<div class="content">
+                             
+				<div class="content_overlay" style='width:100%'></div>
+				<div class="content_inner">
+					<div class="row contentscroll">
+	<div class="container col-md-12">
+                          <div class="col-md-12 content_text">
+                          <center><h1>Order Summary</h1><p class="pad_top13">Please check your order and hit the Check Out button.</p></center><br><br>
+                          <div class="clearfix"></div>
+							<div class="main">
 
-	<!--Thumbnail Navigation-->
-	<div id="prevthumb"></div>
-	<div id="nextthumb"></div>
-	
-	<!--Arrow Navigation-->
-	<a id="prevslide" class="load-item"></a>
-	<a id="nextslide" class="load-item"></a>
-	
-	<div id="thumb-tray" class="load-item">
-		<div id="thumb-back"></div>
-		<div id="thumb-forward"></div>
-	</div>
-	
-	<!--Time Bar-->
-	<div id="progress-back" class="load-item">
-		<div id="progress-bar"></div>
-	</div>
-	
-	<!--Control Bar-->
-	<div id="controls-wrapper" class="load-item">
-		<div id="controls">
-			
-			<a id="play-button"><img id="pauseplay" src="<?=base_url();?>img/pause.png" alt=""/></a>
-		
-			<!--Slide counter-->
-			<div id="slidecounter">
-				<span class="slidenumber"></span> / <span class="totalslides"></span>			</div>
-			
-			<!--Slide captions displayed here-->
-			<div id="slidecaption"></div>
-			
-			<!--Thumb Tray button-->
-			<a id="tray-button"><img id="tray-arrow" src="<?=base_url();?>img/button-tray-up.png" alt=""/></a>
-			
-			<!--Navigation-->
-			<ul id="slide-list"></ul>
-		</div>
-	</div>
-<div class="galheading clearfix"></div>
+<!-- div one created -->
+<div class='clearfix' id='cartcontent'>
+<?php
+	if(count($this->cart->contents()))
+	{
+?>
+<div id='cartleft'>
+<?php 
+	foreach ($this->cart->contents() as $content){
+		echo "
+		<span style='width:30%;'>
+			<H1 style='display:inline;float:left;'>" . $content['qty'] . "</H1>
+			<H6 style='display:inline;float:left;'> pcs</H6>
+		</span>
+		<span style='width:70%'>
+			<img class='specials-round' src='" . base_url() . $content['options']['link_picture'] . "' style='margin:20px 30px 20px 50px;width:100px;height:100px;' />" . $content['name'] . "<br>
+			<H6 style='display:inline;float:left;color:green'>@Rp. " . $this->cart->format_number($content['price']) . "</H6>";
+		echo "
+			<span style='float:right'>
+				<H2 style='display:inline;float:left;color:green'>Rp. " . $this->cart->format_number($content['price']*$content['qty']) . "</H2>
+			</span>";
+		echo '
+		</span>
+		<div style="clear:both"></div>';
+		echo "<hr>";
+	}
+?><!-- div one created ends here -->
+</div>
+<div id='cartright'>
+<?php
+	$date = new DateTime(date('Y-m-j h:i:s'));
+	$date->add(new DateInterval('PT30M'));
+	echo '<center>Deliver To: <br>' . $this->session->userdata('alamat') . '<hr>';
+	echo 'Estimated Delivery Time: <br>' . $date->format('j/m/Y h:i:s A') . '</center><hr>';
+	echo '
+	<center>
+		<H4>
+			<span style="float:left">
+				Subtotal:
+			</span>
+			<span style="float:right;"> 
+				Rp. ' . $this->cart->format_number($this->cart->total()) . 
+			'</span>
+		</H4>';
+	echo '<div style="clear:both"></div>';
+	echo '
+		<H4>
+			<span style="float:left">Delivery Charge:</span>
+			<span style="float:right;"> Rp. ' . $this->cart->format_number('13000') . '</span>
+		</H4>';
+	echo '<div style="clear:both"></div>';
+	echo '
+		<H4>
+			<span style="float:left">Tax:</span>
+			<span style="float:right;"> Rp. ' . $this->cart->format_number($this->cart->total()/10) . '</span>
+		</H4>';
+	echo '<div style="clear:both"></div><hr>';
+	$totalall = $this->cart->total() + $this->cart->total()/10 + 13000;
+	echo '
+		<H4>
+			<span style="float:left">Total:</span>
+			<span style="float:right;color:green;"> Rp. ' . $this->cart->format_number($totalall) . '</span>
+		</H4>';
+	echo '
+		<div style="clear:both"></div>
+	</center><hr>';
+?><br>
+</div>
+<div class="clearfix"></div>
+<?php
+	echo form_open('Controller/cart',array('class'=>'formcart'));
+	echo "<input type='submit' value='Check Out' name='checkout' class='submitBtn' style='margin:10px;width:99%;height:120%;'  />";
+	echo form_close();
+	}
+	else
+	{
+		echo "<center><H4 style=''>There're no order that you make at the time. Please order first to do checkout.</p></center>";
+	}
+?>
 </div>
 </div>
 </div>
+           </div>
+    </div>
+                </div>
+				</div>
+	  </div>
+    </div>
+</div>
+</div>
 
-<!-- // Gallery  SS Ends
-=============================--> 
-
-<script type="text/javascript">
+<script>
 	var url = "<?=base_url();?>";
 	var b_url = "<?=base_url();?>";
 	var site_url = "<?=site_url();?>";
-	var gallery = [];
-	var counter = 0;
-	<?php
-		foreach($gallery as $gal)
-		{
-	?>
-	gallery[counter] = {};
-	gallery[counter]['title'] = '<?php echo $gal['title']; ?>';
-	gallery[counter]['image'] = '<?php echo base_url() . $gal['image']; ?>';
-	gallery[counter]['thumb'] = '<?php echo base_url() . $gal['thumb']; ?>';
-	counter++;
-	<?php } ?>
 </script>
 
 <!--java script-->
@@ -226,7 +315,6 @@
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.scrollTo.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="	"></script>
-
 
 <!-- SlickNavigation For Mobile Device-->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.slicknav.min.js"></script>
@@ -247,16 +335,12 @@
 <!-- Preloader Starts -->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jpreloader.min.js"></script>
 <!-- Preloader End -->
-
 <!-- Cycle Slider Gallery Starts-->
 <!--<script type="text/javascript" src="assets/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="assets/js/jquery.cycle2.caption2.js"></script>-->
 <!-- Cycle Slider Gallery End-->
 
 <!--SuperSized Gallery-->
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.3.2.7.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.shutter.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized_custom.js"></script>
 <!--SuperSized Gallery End-->
 
 <!-- Filter Gallery And PrettyPhoto-->
@@ -296,6 +380,10 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.history.js"></script>
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
+
+<!-- Notification -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/notify.min.js"></script>
+<!-- Notification End -->
 
 <!-- Redirect -->
         <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>

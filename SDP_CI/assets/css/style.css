@@ -1155,7 +1155,7 @@ input:valid, input:in-range{
 	color:#727272;
 	padding-left:10px;
 }
-.reserve_form input[type="text"]{
+.reserve_form input[type="text"], .reserve_form input[type="number"]{
 	width:100%;
 	height:40px;
 	line-height:40px;
@@ -1185,7 +1185,7 @@ input:valid, input:in-range{
 	padding-left:10px;
 	padding-top:10px;
 }
-.reserve_form .submitBtn{
+.reserve_form .submitBtn, .reserve_form .submitBtn1, .reserve_form .submitBtn2{
 	border-style:none;
 	font-size:13px;
 	height:40px;
@@ -1203,8 +1203,8 @@ input:valid, input:in-range{
 	background-color:#98c521;
 	text-transform:uppercase;
 }
-.reserve_form .submitBtn:hover{ color:#ffffff; background-color: #727272; }
-.reserve_form .submitBtn:focus{ box-shadow:none; }
+.reserve_form .submitBtn:hover, .reserve_form .submitBtn1:hover, .reserve_form .submitBtn2:hover{ color:#ffffff; background-color: #727272; }
+.reserve_form .submitBtn:focus, .reserve_form .submitBtn1:focus, .reserve_form .submitBtn2:focus{ box-shadow:none; }
 .reserve_title{
 	font-size: 22px;
 	color: #000000;
@@ -1235,7 +1235,7 @@ input:valid, input:in-range{
 	border: transparent;
 	border-radius:3px;
 }
-#reservation_form input[type="text"], #reservation_form textarea  {
+#reservation_form input[type="text"], #reservation_form textarea, #reservation_form input[type="number"]  {
 	font-family: 'Raleway', sans-serif;
 }
 #reservation_form textarea{
@@ -1249,7 +1249,7 @@ input:valid, input:in-range{
 	margin: 4px 0px 12px 0px;
 	border-radius:3px;
 }
-#reservation_form .submitBtn{
+#reservation_form .submitBtn, #reservation_form .submitBtn1, #reservation_form .submitBtn2{
 	font-family: 'Carrois Gothic SC', sans-serif;
 	border-style:none;
 	font-size:13px;
@@ -1267,9 +1267,9 @@ input:valid, input:in-range{
 	color:#FFFFFF;
 	background-color:#f32a2a;
 }
-#reservation_form .submitBtn:hover { color:#ffffff; background-color: #727272; }
-#reservation_form .submitBtn:focus{ box-shadow:none; }
-
+#reservation_form .submitBtn:hover, #reservation_form .submitBtn1:hover, #reservation_form .submitBtn2:hover{ color:#ffffff; background-color: #727272; }
+#reservation_form .submitBtn:focus, #reservation_form .submitBtn1:focus, #reservation_form .submitBtn2:focus{ box-shadow:none; }
+#reservation_form .submitBtn1{ margin-right: 10px;}
 #reservation_form label{ float:left; padding-top:10px; margin:0px 0px 0px 0px; }
 #reservation_form label.error{ 
 	color: #ff0000;
@@ -1285,6 +1285,129 @@ input:valid, input:in-range{
 /* // Reservation SECTION
 =================================================== */
 
+/* Menu SECTION NEW
+=================================================== */
+
+/* Menu Form */
+.right input[type="text"], .right input[type="number"]{
+	height:40px;
+	line-height:40px;
+	border:transparent;
+	background-color:#ffffff;
+	margin-bottom:10px;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius:3px;
+	font-size:13px;
+	color:#727272;
+	padding-left:10px;
+}
+.right input[name="dt"]{
+	width:100%;
+	margin-bottom:0px;
+}
+.right .input-group-addon { background-color: rgba(0,0,0,0.1); border: 1px solid transparent; }
+.input-group{ width:60%; }
+.right textarea{
+	width:100%;
+	height:70px;
+	border:transparent;
+	background-color:#ffffff;
+	margin-bottom:10px;
+	border-radius:3px;
+	font-size:13px;
+	color:#727272;
+	padding-left:10px;
+	padding-top:10px;
+}
+.right.submitBtn, .formcart .submitBtn{
+	border-style:none;
+	font-size:13px;
+	height:40px;
+	line-height:40px;
+	display:block;
+	float:left;
+	width:auto;
+	padding:0px 15px;
+	margin:1px auto 20px;
+	cursor:pointer;
+	position:relative;	
+	outline:none;
+	clear:both;
+	color:#FFFFFF;
+	background-color:#98c521;
+	text-transform:uppercase;
+}
+.right .submitBtn:hover, .formcart .submitBtn:hover{ color:#ffffff; background-color: #727272; }
+.right .submitBtn:focus, .formcart .submitBtn:focus{ box-shadow:none; }
+.right input:focus, .right textarea:focus ,input:valid:focus{ 
+	border:0;
+    outline: 0;
+  	/* IE6-9 */
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(243,42,42,0.8);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(243,42,42,0.8);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(243,42,42,0.8); 
+}
+
+.right{ display:block; width:100%;}
+.right input, .formcart input{
+	height: 48px;
+	margin-right:0;
+	line-height: 45px;
+	padding-left: 10px;
+	font-size:16px;
+	color:#a5a5a5;
+	background-color:rgba(0,0,0,0.1);
+	border: transparent;
+	border-radius:3px;
+}
+.right input[type="text"], #reservation_form textarea, #reservation_form input[type="number"]  {
+	font-family: 'Raleway', sans-serif;
+}
+.right textarea{
+	width:100%;
+	padding:8px;
+	height:145px;
+	font-size:16px;
+	color:#a5a5a5;
+	background-color:rgba(0,0,0,0.1);
+	border: transparent;
+	margin: 4px 0px 12px 0px;
+	border-radius:3px;
+}
+.right .submitBtn, .formcart .submitBtn{
+	font-family: 'Carrois Gothic SC', sans-serif;
+	border-style:none;
+	font-size:13px;
+	height:40px;
+	line-height:40px;
+	width:auto;
+	padding:0px 20px;
+	margin:20px auto 20px;
+	cursor:pointer;
+	text-transform:uppercase;
+	position:relative;	
+	outline:none;
+	clear:both;
+	color:#FFFFFF;
+	background-color:#f32a2a;
+}
+.right .submitBtn:hover, .formcart .submitBtn:hover{ color:#ffffff; background-color: #727272; }
+.right .submitBtn:focus, .formcart .submitBtn:focus{ box-shadow:none; }
+
+.right label{ float:left; padding-top:10px; margin:0px 0px 0px 0px; }
+.right label.error{ 
+	color: #ff0000;
+	position:relative;
+	text-align: left;
+	font-size:11px;
+	font-weight:500;
+	top: -8px;
+	font-family: 'Raleway', sans-serif;
+}
+/* Reservation Form */
+
+/* // Menu SECTION NEW
+=================================================== */
 /* Event SECTION
 =================================================== */
 .left_content{margin-left: -15px; }
@@ -1450,25 +1573,6 @@ z-index:0;
 =================================================== */
 
 /* Login and Register Form */
-.date_mar{ margin-bottom:20px; }
-input:invalid, input:out-of-range{
-	background:#ffffff;
-	border:transparent;
-	height:35px;
-	line-height:35px;
-	border-radius:3px;
-}
-input:valid, input:in-range{
-	background:#ffffff;
-	border:transparent;
-	height:35px;
-	line-height:35px;
-	margin-right:10px;
-	border-radius:3px;
-	font-size:13px;
-	color:#727272;
-	padding-left:10px;
-}
 .log_form input[type="text"], .log_form input[type="password"], .reg_form input[type="text"], .reg_form input[type="password"]{
 	width:100%;
 	height:40px;
@@ -2096,6 +2200,11 @@ mobile
 	.cbp-ig-grid .cbp-ig-category {	margin-top: 20px; }
 }
 
+.tooltip-inner{
+	color:black;
+	background: white;
+	border: 4px solid rgba(0,0,0,0.4);
+}
 
 /* Firefox Only Hack code css */
 @-moz-document url-prefix() { 

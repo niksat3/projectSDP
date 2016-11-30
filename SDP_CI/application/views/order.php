@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/font-awesome.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/animate.min.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/style.css" type="text/css" />
+<link rel="stylesheet" href="<?=base_url();?>assets/css/jquery-ui.css" type="text/css" />
 
 <!--Menu-->
 <link rel="stylesheet" href="<?=base_url();?>assets/css/menu.css" type="text/css" />
@@ -59,8 +60,18 @@
 <script src="<?=base_url();?>assets/js/jquery-migrate-1.2.1.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/modernizr.custom.js"></script>
+<script>
+	$( function() {
+		$(document).ready(function(){
+			$('.specials-round').tooltip({
+				position: {
+					tooltipClass: "info-tooltip"
+				}
+			});
+		});
+	} );
+</script>
 
-	
 </head>
 
 <body>
@@ -97,14 +108,14 @@
 							{
 						?>
 							<ul>
-							<li><a id="order" href="" class="nav-link">Order Our Menu</a>
+							<li><a id="order" href="" class="nav-link selected">Order Our Menu</a>
 							<li><a id="orderhistory" href="" class="nav-link">1 Week Order History</a>
 							</ul>
 						<?php 
 							}
 						?>
 						</li>
-						<li><a id="galleryss" href="" class="nav-link selected">Gallery</a></li>	
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
 						<li><a id="event" href="" class="nav-link">Events</a></li>
 						<?php 
 							if($this->session->userdata('user'))
@@ -148,73 +159,101 @@
 =============================-->
 
 
-<!-- Gallery  SS
+
+<!--Menu Toggle 
 =============================--> 
 
-<div id="galleryss" class="item">
+<div id="menu5" class="item">
+			<img src="<?=base_url()?>assets/img/2.jpg" alt="The Spice Lounge" class="fullBg">
+			<div class="content">
+                             
+				<div class="content_overlay" style='width:100%'></div>
+				<div class="content_inner">
+					<div class="row contentscroll">
+	<div class="container col-md-12">
+                          <div class="col-md-12 content_text">
+                          <h1>Order</h1><p class="pad_top13">Please set the amount of the food you want to buy and hit Add To Cart button.</p> <br />
+                          <div class="clearfix">
+							<div class="main">
 
-	<!--Thumbnail Navigation-->
-	<div id="prevthumb"></div>
-	<div id="nextthumb"></div>
-	
-	<!--Arrow Navigation-->
-	<a id="prevslide" class="load-item"></a>
-	<a id="nextslide" class="load-item"></a>
-	
-	<div id="thumb-tray" class="load-item">
-		<div id="thumb-back"></div>
-		<div id="thumb-forward"></div>
-	</div>
-	
-	<!--Time Bar-->
-	<div id="progress-back" class="load-item">
-		<div id="progress-bar"></div>
-	</div>
-	
-	<!--Control Bar-->
-	<div id="controls-wrapper" class="load-item">
-		<div id="controls">
-			
-			<a id="play-button"><img id="pauseplay" src="<?=base_url();?>img/pause.png" alt=""/></a>
+<!-- div one created -->
+<div class='clearfix'>
+<?php 
+	$ctr = 0;
+	foreach ($kategori as $k)	{
+		if ($ctr == 0)	{
+			echo "<div class='pad_top50'>";
+		}
+		else {
+			echo "<div class='clearfix'>";
+		}
+		echo "
+				<div class='toggle-container'>
+					<div class='toggle-header'>
+						<div class='toggle-close'>$k->NAMA_KATEGORI</div>
+					</div>
+				<table cellpading='2' style='margin:2px;overflow-x:auto;'>";
+		$ctrr = 0;
+		foreach ($menu as $m)	{
+			if ($m->ID_KATEGORI == $k->ID_KATEGORI)	{
+				if ($ctrr == 0)	{
+					echo "<tr><div class='pad_top20 clearfix'>";
+				}
+				else	{
+					echo "<div class='clearfix'>";
+				}
+				echo "
+					<td width=30%><center>
+					<img title='$m->DESKRIPSI' class='specials-round' src='". base_url() . $m->LINK_PICTURE . "' style='float:none' />
+						<div class='specials-content' style='float:none'>
+							<h4>$m->NAMA_MENU <br>Rp. ". $this->cart->format_number($m->HARGA) ."</h4>
+						</div>";
+				if($this->session->userdata('user'))
+				{
+					echo form_open('Controller/order');
+					echo    "<div class='right'>
+								<input type='hidden' name='id_menu' value='$m->ID_MENU' />
+								<input type='hidden' name='nama_menu' value='$m->NAMA_MENU' />
+								<input type='hidden' name='harga_menu' value='$m->HARGA' />
+								<input type='hidden' name='link_picture' value='$m->LINK_PICTURE' />
+								<input type='hidden' name='deskripsi' value='$m->DESKRIPSI' />
+								<input type='number' name='order' placeholder='* Amount : ' onFocus='this.placeholder = ''' onBlur='this.placeholder = '* Amount :'' style='margin-bottom:0px' /><br>
+								<input type='submit' value='Add to Cart' name='AddToCart' class='submitBtn' style='margin:10px'  />
+							</div>";
+					echo form_close();
+				}
+				echo "</center></td></div>";
+				if($ctrr%5==0 and $ctrr!=0) echo "</tr><tr>";
+				$ctrr++;
+			}
+		}
+		echo "</table>";
+		echo "</div>";
+		echo "</div>";
+		$ctr++;
+	}
+
+?><!-- div one created ends here -->
+
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+           </div>
+    </div>
+                </div>
+				</div>
+	  </div>
+    </div>
+</div>
+</div>
+<!-- // Wrapper =============================-->
+
 		
-			<!--Slide counter-->
-			<div id="slidecounter">
-				<span class="slidenumber"></span> / <span class="totalslides"></span>			</div>
-			
-			<!--Slide captions displayed here-->
-			<div id="slidecaption"></div>
-			
-			<!--Thumb Tray button-->
-			<a id="tray-button"><img id="tray-arrow" src="<?=base_url();?>img/button-tray-up.png" alt=""/></a>
-			
-			<!--Navigation-->
-			<ul id="slide-list"></ul>
-		</div>
-	</div>
-<div class="galheading clearfix"></div>
-</div>
-</div>
-</div>
-
-<!-- // Gallery  SS Ends
-=============================--> 
-
-<script type="text/javascript">
+<script>
 	var url = "<?=base_url();?>";
 	var b_url = "<?=base_url();?>";
 	var site_url = "<?=site_url();?>";
-	var gallery = [];
-	var counter = 0;
-	<?php
-		foreach($gallery as $gal)
-		{
-	?>
-	gallery[counter] = {};
-	gallery[counter]['title'] = '<?php echo $gal['title']; ?>';
-	gallery[counter]['image'] = '<?php echo base_url() . $gal['image']; ?>';
-	gallery[counter]['thumb'] = '<?php echo base_url() . $gal['thumb']; ?>';
-	counter++;
-	<?php } ?>
 </script>
 
 <!--java script-->
@@ -226,7 +265,6 @@
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.scrollTo.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="	"></script>
-
 
 <!-- SlickNavigation For Mobile Device-->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.slicknav.min.js"></script>
@@ -247,16 +285,12 @@
 <!-- Preloader Starts -->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jpreloader.min.js"></script>
 <!-- Preloader End -->
-
 <!-- Cycle Slider Gallery Starts-->
 <!--<script type="text/javascript" src="assets/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="assets/js/jquery.cycle2.caption2.js"></script>-->
 <!-- Cycle Slider Gallery End-->
 
 <!--SuperSized Gallery-->
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.3.2.7.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.shutter.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized_custom.js"></script>
 <!--SuperSized Gallery End-->
 
 <!-- Filter Gallery And PrettyPhoto-->
@@ -297,9 +331,22 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
+<!-- Notification -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/notify.min.js"></script>
+<!-- Notification End -->
+
 <!-- Redirect -->
         <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
 <!-- Redirect End -->
+<script type='text/javascript'>
+	<?php
+		if($this->session->flashdata('insert')=='success')
+		{
+	?>
+	$.notify("Success Add To Cart","success");
+	<?php } ?>
+	
+</script>
 	
 
 </body>

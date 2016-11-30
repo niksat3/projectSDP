@@ -50,7 +50,7 @@
 			$login = true;
 			foreach($datas as $data)
 			{
-				if($data->USERNAME_CUSTOMER==$user and $data->PASSWORD_CUSTOMER==crypt(md5($pass),$key))
+				if(strtoupper($data->USERNAME_CUSTOMER)==strtoupper($user) and $data->PASSWORD_CUSTOMER==crypt(md5($pass),$key))
 				{
 					return $data;
 				}

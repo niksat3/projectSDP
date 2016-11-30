@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/font-awesome.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/animate.min.css" type="text/css" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/style.css" type="text/css" />
+<link rel="stylesheet" href="<?=base_url();?>assets/css/jquery-ui.css" type="text/css" />
 
 <!--Menu-->
 <link rel="stylesheet" href="<?=base_url();?>assets/css/menu.css" type="text/css" />
@@ -55,12 +56,127 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/colors/color1.css" id="color" type="text/css" />
 <!--Color Change End-->
 
+<style>
+strong {
+	font-weight: bold; 
+}
+
+em {
+	font-style: italic; 
+}
+
+table {
+	background: #f5f5f5;
+	border-collapse: separate;
+	box-shadow: inset 0 1px 0 #fff;
+	font-size: 12px;
+	line-height: 24px;
+	margin: 30px auto;
+	text-align: left;
+	width: 800px;
+}	
+
+th {
+	background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(rgba(243,242,242,0.6), rgba(143,142,142,0.9));
+	border-left: 1px solid #555;
+	border-right: 1px solid #777;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #333;
+	box-shadow: inset 0 1px 0 #999;
+	color: #000;
+  font-weight: bold;
+	padding: 10px 15px;
+	position: relative;
+	text-shadow: 0 1px 0 #fff;	
+}
+
+th:after {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+	content: '';
+	display: block;
+	height: 25%;
+	left: 0;
+	margin: 1px 0 0 0;
+	position: absolute;
+	top: 25%;
+	width: 100%;
+}
+
+th:first-child {
+	border-left: 1px solid #777;	
+	box-shadow: inset 1px 1px 0 #999;
+}
+
+th:last-child {
+	box-shadow: inset -1px 1px 0 #999;
+}
+
+td {
+	border-right: 1px solid #fff;
+	border-left: 1px solid #e8e8e8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 10px 15px;
+	position: relative;
+	transition: all 300ms;
+}
+
+td:first-child {
+	box-shadow: inset 1px 0 0 #fff;
+}	
+
+td:last-child {
+	border-right: 1px solid #e8e8e8;
+	box-shadow: inset -1px 0 0 #fff;
+}	
+
+tr {
+	background: url(http://jackrugile.com/images/misc/noise-diagonal.png);	
+}
+
+tr:nth-child(odd) td {
+	background: #f1f1f1 url(http://jackrugile.com/images/misc/noise-diagonal.png);	
+}
+
+tr:last-of-type td {
+	box-shadow: inset 0 -1px 0 #fff; 
+}
+
+tr:last-of-type td:first-child {
+	box-shadow: inset 1px -1px 0 #fff;
+}	
+
+tr:last-of-type td:last-child {
+	box-shadow: inset -1px -1px 0 #fff;
+}	
+
+tbody:hover td {
+	color: transparent;
+	text-shadow: 0 0 3px #aaa;
+}
+
+tbody:hover tr:hover td {
+	color: #444;
+	text-shadow: 0 1px 0 #fff;
+}
+</style>
+
 <script src="<?=base_url();?>assets/js/jquery-1.11.1.min.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-migrate-1.2.1.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/modernizr.custom.js"></script>
+<script>
+	$( function() {
+		$(document).ready(function(){
+			$('.specials-round').tooltip({
+				position: {
+					tooltipClass: "info-tooltip"
+				}
+			});
+		});
+	} );
+</script>
 
-	
 </head>
 
 <body>
@@ -97,14 +213,14 @@
 							{
 						?>
 							<ul>
-							<li><a id="order" href="" class="nav-link">Order Our Menu</a>
+							<li><a id="order" href="" class="nav-link selected">Order Our Menu</a>
 							<li><a id="orderhistory" href="" class="nav-link">1 Week Order History</a>
 							</ul>
 						<?php 
 							}
 						?>
 						</li>
-						<li><a id="galleryss" href="" class="nav-link selected">Gallery</a></li>	
+						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
 						<li><a id="event" href="" class="nav-link">Events</a></li>
 						<?php 
 							if($this->session->userdata('user'))
@@ -148,73 +264,62 @@
 =============================-->
 
 
-<!-- Gallery  SS
+
+<!--Menu Toggle 
 =============================--> 
 
-<div id="galleryss" class="item">
-
-	<!--Thumbnail Navigation-->
-	<div id="prevthumb"></div>
-	<div id="nextthumb"></div>
-	
-	<!--Arrow Navigation-->
-	<a id="prevslide" class="load-item"></a>
-	<a id="nextslide" class="load-item"></a>
-	
-	<div id="thumb-tray" class="load-item">
-		<div id="thumb-back"></div>
-		<div id="thumb-forward"></div>
-	</div>
-	
-	<!--Time Bar-->
-	<div id="progress-back" class="load-item">
-		<div id="progress-bar"></div>
-	</div>
-	
-	<!--Control Bar-->
-	<div id="controls-wrapper" class="load-item">
-		<div id="controls">
-			
-			<a id="play-button"><img id="pauseplay" src="<?=base_url();?>img/pause.png" alt=""/></a>
+<div id="menu5" class="item">
+			<img src="<?=base_url()?>assets/img/2.jpg" alt="The Spice Lounge" class="fullBg">
+			<div class="content">
+                             
+				<div class="content_overlay" style='width:100%'></div>
+				<div class="content_inner">
+					<div class="row contentscroll">
+	<div class="container col-md-12">
+                          <div class="col-md-12 content_text">
+                          <h1>Order History</h1><?php if(count($htrans)!=0) { ?><p class="pad_top13">Your last order in 1 week.</p> <br /> <?php } ?>
+                          <div class="clearfix">
+							<div class="main">
+	<?php
+		if(count($htrans)!=0)
+		{
+	?>
+	<table>
+	<tbody>
+	<hr>
+	<?php
 		
-			<!--Slide counter-->
-			<div id="slidecounter">
-				<span class="slidenumber"></span> / <span class="totalslides"></span>			</div>
-			
-			<!--Slide captions displayed here-->
-			<div id="slidecaption"></div>
-			
-			<!--Thumb Tray button-->
-			<a id="tray-button"><img id="tray-arrow" src="<?=base_url();?>img/button-tray-up.png" alt=""/></a>
-			
-			<!--Navigation-->
-			<ul id="slide-list"></ul>
-		</div>
-	</div>
-<div class="galheading clearfix"></div>
+	?>
+	</tbody>
+	</table>
+	<?php
+		}
+		else
+		{
+			echo "<H4 style=''>There're no order that you make since last week.</p>";
+		}
+	?>
+<!-- div one created -->
+<div class='clearfix'>
+<div class="clearfix"></div>
 </div>
 </div>
 </div>
+           </div>
+    </div>
+                </div>
+				</div>
+	  </div>
+    </div>
+</div>
+</div>
+<!-- // Wrapper =============================-->
 
-<!-- // Gallery  SS Ends
-=============================--> 
-
-<script type="text/javascript">
+		
+<script>
 	var url = "<?=base_url();?>";
 	var b_url = "<?=base_url();?>";
 	var site_url = "<?=site_url();?>";
-	var gallery = [];
-	var counter = 0;
-	<?php
-		foreach($gallery as $gal)
-		{
-	?>
-	gallery[counter] = {};
-	gallery[counter]['title'] = '<?php echo $gal['title']; ?>';
-	gallery[counter]['image'] = '<?php echo base_url() . $gal['image']; ?>';
-	gallery[counter]['thumb'] = '<?php echo base_url() . $gal['thumb']; ?>';
-	counter++;
-	<?php } ?>
 </script>
 
 <!--java script-->
@@ -226,7 +331,6 @@
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.scrollTo.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="	"></script>
-
 
 <!-- SlickNavigation For Mobile Device-->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery.slicknav.min.js"></script>
@@ -247,16 +351,12 @@
 <!-- Preloader Starts -->
 <script type="text/javascript" src="<?=base_url();?>assets/js/jpreloader.min.js"></script>
 <!-- Preloader End -->
-
 <!-- Cycle Slider Gallery Starts-->
 <!--<script type="text/javascript" src="assets/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="assets/js/jquery.cycle2.caption2.js"></script>-->
 <!-- Cycle Slider Gallery End-->
 
 <!--SuperSized Gallery-->
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.3.2.7.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.shutter.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized_custom.js"></script>
 <!--SuperSized Gallery End-->
 
 <!-- Filter Gallery And PrettyPhoto-->
@@ -297,9 +397,22 @@
         <script type="text/javascript" src="<?=base_url();?>assets/js/ajaxify-html5.js"></script>
 <!--<![endif]-->
 
+<!-- Notification -->
+        <script type="text/javascript" src="<?=base_url();?>assets/js/notify.min.js"></script>
+<!-- Notification End -->
+
 <!-- Redirect -->
         <script type="text/javascript" src="<?=base_url();?>assets/js/redirect_url.js"></script>
 <!-- Redirect End -->
+<script type='text/javascript'>
+	<?php
+		if($this->session->flashdata('insert')=='success')
+		{
+	?>
+	$.notify("Success Add To Cart","success");
+	<?php } ?>
+	
+</script>
 	
 
 </body>

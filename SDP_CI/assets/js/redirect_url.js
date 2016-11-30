@@ -1,6 +1,9 @@
 //Custom redirect url
-
 $("#home").click(function(){
+	window.location = site_url + "/Controller/";
+	return false;
+});
+$("#logo").click(function(){
 	window.location = site_url + "/Controller/";
 	return false;
 });
@@ -9,7 +12,18 @@ $("#about").click(function(){
 	return false;
 });
 $("#menu5").click(function(){
-	window.location = site_url + "/Controller/menu/";
+	if($("#menu5").text()!='Order')
+	{
+		window.location = site_url + "/Controller/menu/";
+		return false;
+	}
+});
+$("#order").click(function(){
+	window.location = site_url + "/Controller/order/";
+	return false;
+});
+$("#orderhistory").click(function(){
+	window.location = site_url + "/Controller/orderhistory/";
 	return false;
 });
 $("#galleryss").click(function(){
@@ -20,7 +34,11 @@ $("#event").click(function(){
 	window.location = site_url + "/Controller/events/";
 	return false;
 });
-$("#reservation").click(function(){
+$("#reserve").click(function(){
+	window.location = site_url + "/Controller/reservation/";
+	return false;
+});
+$("#reservation2").click(function(){
 	window.location = site_url + "/Controller/reservation/";
 	return false;
 });
@@ -40,3 +58,8 @@ $("#logout").click(function(){
 	window.location = site_url + "/Controller/logout/";
 	return false;
 });
+$("#cart").click(function(){
+	window.location = site_url + "/Controller/cart/";
+	return false;
+});
+

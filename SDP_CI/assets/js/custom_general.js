@@ -70,7 +70,11 @@ jQuery(document).ready(function($){
 
 $("#header").click(function (e) { e.preventDefault(); });
 $("#mainheader").click(function (e) { e.preventDefault(); });
-
+$("#cartimg").hover(function() {
+  $(this).attr('src', b_url + 'assets/img/cart2.png');
+},function() {
+  $(this).attr('src', b_url + 'assets/img/cart.png');
+});
 //custom animation
 /*********************************************************************************/
 //show animation all component
@@ -293,7 +297,7 @@ $(function(){
 	duration: 1000,
 	easingOpen: "easeOutQuint", //available with jQuery UI
 	closeOnClick:true
-});
+	});
 });
 
 
@@ -418,52 +422,39 @@ $(window).load(function() {
 });
 
 
-
 // ******************************************************************************************
 // Reservation Form Start
 // ******************************************************************************************
 jQuery(document).ready(function($){
-"use strict";	
   $('#reservation_form').validate(
     {
-    rules: {
-    name: {
-    minlength: 2,
-    required: true
-    },
-	phone: {
-    required: true,
-    },
-    email: {
-    required: true,
-    email: true
-    },
-    subject: {
-    minlength: 2,
-    required: true
-    },
-    message: {
-    minlength: 2,
-    required: true
-    }
-    },
-    highlight: function(element) {
-    $(element).closest('.control-group').removeClass('success').addClass('error');
-    },
-    success: function(element) {
-    element
-    .text('OK!').addClass('valid')
-    .closest('.control-group').removeClass('error').addClass('success');
-    },
-	submitHandler: function(form) {
-					// do other stuff for a valid form
-					$.post('reservation_form.php', $("#reservation_form").serialize(), function(data) { // action file is here 
-						$('#reservation_form').html(data);
-					});
-				}
-    });
-    }); // end document.ready
-
+		rules: {
+		dt: {
+		required: true
+		},
+		amount: {
+		required: true
+		}
+		},
+		highlight: function(element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+		element
+		.text('OK!').addClass('valid')
+		.closest('.control-group').removeClass('error').addClass('success');
+		},
+		submitHandler: function(form) {
+						// do other stuff for a valid form
+						if(!$('.submitBtn1').val())
+						{
+							$.post(url + '/assets/php/reservation_form_validation.php', $("#reservation_form").serialize(), function(data) { // action file is here 
+								$('#reservation_form').html(data);
+							});
+						}
+					}
+	});
+}); // end document.ready
 
 //Reservation Form END
 
@@ -514,148 +505,6 @@ jQuery(document).ready(function($){
 
 
 //Contact Form END
-
-
-
-
-
-
-//****************************************************************************
-		  		// Google map 
-//****************************************************************************
-jQuery(document).ready(function($){
-		 "use strict";
-			//dragable mobile
-			var drag;
-			if($(window).width()<796){drag=false;}else{drag=true;}
-			
-		/* googleMaps */
-		
-				function map_canvas_loaded() {
-				var latlng = new google.maps.LatLng(mapLatitude,mapLongitude);
-				
-				// setting styles here 
-				var styles = [
-					{
-						"featureType": "landscape",
-						"stylers": [
-							{"hue": "#000"},
-							{"saturation": -100},
-							{"lightness": 40},
-							{"gamma": 1}
-						]
-					},
-					{
-						"featureType": "road.highway",
-						"stylers": [
-							{"hue": color},
-							{"saturation": saturation},
-							{"lightness": 20},
-							{"gamma": 1}
-						]
-					},
-					{
-						"featureType": "road.arterial",
-						"stylers": [
-							{"hue": color},
-							{"saturation": saturation},
-							{"lightness": -10},
-							{"gamma": 1}
-						]
-					},
-					{
-						"featureType": "road.local",
-						"stylers": [
-							{"hue": color},
-							{"saturation": saturation},
-							{"lightness": 20},
-							{"gamma": 1}
-						]
-					},
-					{
-						"featureType": "water",
-						"stylers": [
-							{"hue": "#000"},
-							{"saturation": -100},
-							{"lightness": 15},
-							{"gamma": 1}
-						]
-					},
-					{
-						"featureType": "poi",
-						"stylers": [
-							{"hue": "#000"},
-							{"saturation": -100},
-							{"lightness": 25},
-							{"gamma": 1}
-						]
-					}
-				];		
-				var options = {
-				 center : latlng,
-				 mapTypeId: google.maps.MapTypeId.ROADMAP,
-				 zoom : mapZoom_value,
-				 styles: styles
-				};
-				var map_canvas = new google.maps.Map(document.getElementById('map_canvas'), options);
-				
-			
-			
-				
-				//****************************************************************************
-		  		// marker 1 content 
-				//****************************************************************************
-				var pointer1 = new google.maps.LatLng(marker1_Latitude,marker1_Longitude);
-				
-				var marker1= new google.maps.Marker({
-				 position : pointer1,
-				 map : map_canvas,
-				 icon: marker1_pointerUrl //Custom Pointer URL
-				 });
-				
-				google.maps.event.addListener(marker1,'click',
-				 function() {
-				 var infowindow = new google.maps.InfoWindow(
-				 {content:marker1_content });
-				 infowindow.open(map_canvas,marker1);
-				 });
-				// marker 1 END
-
-
-
-				//****************************************************************************
-		  		// marker 2 content 
-				//****************************************************************************
-				var pointer2 = new google.maps.LatLng(marker2_Latitude,marker2_Longitude);
-				
-				var marker2= new google.maps.Marker({
-				 position : pointer2,
-				 map : map_canvas,
-				 icon: marker2_pointerUrl //Custom Pointer URL
-				 });
-				
-				google.maps.event.addListener(marker2,'click',
-				 function() {
-				 var infowindow = new google.maps.InfoWindow(
-				 {content:marker2_content });
-				 infowindow.open(map_canvas,marker2);
-				 });
-				// marker 2 END
-				
-				
-				
-
-			}
-
-				window.onload = function() {
-				 map_canvas_loaded();
-				};
-			/* End */
-			
-		});
-
-//Google map end 
-		
 
 
 //****************************************************************************

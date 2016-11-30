@@ -13,6 +13,7 @@
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 
+<link rel="icon" href="<?=base_url().$ico?>" type="image/x-icon" />
 <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css" type="text/css"/>
 <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap-datetimepicker.min.css" type="text/css"/>
 <link rel="stylesheet" href="<?=base_url();?>assets/css/font-awesome.css" type="text/css" />
@@ -54,13 +55,6 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/colors/color1.css" id="color" type="text/css" />
 <!--Color Change End-->
 
-
-
-<link rel="shortcut icon" href="<?=base_url();?>assets/assets/images/favicon.ico" /> 
-<link rel="apple-touch-icon" href="<?=base_url();?>assets/assets/images/apple_touch_icon.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="<?=base_url();?>assets/assets/images/apple_touch_icon_72x72.png" />
-<link rel="apple-touch-icon" sizes="114x114" href="<?=base_url();?>assets/assets/images/apple_touch_icon_114x114.png" />
-
 <script src="<?=base_url();?>assets/js/jquery-1.11.1.min.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-migrate-1.2.1.js"></script>
 <script src="<?=base_url();?>assets/js/jquery-ui.min.js"></script>
@@ -88,7 +82,7 @@
 <div class="container"><div class="row">
 				<div class="header-table col-md-12 header-menu">
         			<!--  Logo section -->
-                	<div class="brand"><a href="#home"  class="nav-link">The <span> Silver </span>Paradise</a></div>
+                	<div class="brand"><a id='logo' href=""  class="nav-link">The <span> Silver </span>Paradise</a></div>
                     <!--  // Logo section -->
 
 		<!--  Sub Page Menu section -->
@@ -97,14 +91,31 @@
 						<ul id="sub-nav" class="nav">
 						<li><a id="home" href="" class="nav-link">Main</a></li>
 						<li><a id="about" href="" class="nav-link">About</a></li>
-						<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a></li>
+						<li><a id="menu5" href="" class="nav-link"><?php echo ($this->session->userdata('user') ? 'Order' : 'Menu');?></a>
+						<?php
+							if($this->session->userdata('user'))
+							{
+						?>
+							<ul>
+							<li><a id="order" href="" class="nav-link">Order Our Menu</a>
+							<li><a id="orderhistory" href="" class="nav-link">1 Week Order History</a>
+							</ul>
+						<?php 
+							}
+						?>
+						</li>
 						<li><a id="galleryss" href="" class="nav-link">Gallery</a></li>	
 						<li><a id="event" href="" class="nav-link selected">Events</a></li>
 						<?php 
 							if($this->session->userdata('user'))
 							{
 						?> 
-						<li><a id="reservation" href="" class="nav-link">Reservation</a></li>
+						<li><a id="reservation" href="" class="nav-link">Reservation</a>
+							<ul>
+							<li><a id="reserve" href="" class="nav-link">Reserve</a>
+							<li><a id="reservationhistory" href="" class="nav-link">Reservation History</a>
+							</ul>
+						</li>
 						<?php } ?>
 						<li><a id="contact" href="" class="nav-link">Contact</a></li>
 						<?php 
@@ -119,6 +130,7 @@
 							{
 						?> 
 						<li><a id="logout" href="" class="nav-link">Logout</a></li>
+						<li><a id="cart" href="" class="nav-link"><img id='cartimg' src="<?=base_url();?>assets/img/cart.png" width='25px' /></a></li>
 						<?php } ?>
 				  </ul>
 				  </nav>
@@ -140,7 +152,7 @@
 =============================-->
 
 		<div id="event" class="item">
-			<img src="<?=base_url();?>assets/img/19.jpg"  alt="the Paxton Gipsy Hill"  class="fullBg">
+				<img src="<?php echo base_url() . $galrandom->LINK_GALLERY_HOME;?>" alt="The Spice Lounge" class="fullBg">
 			<div class="content">
             
 				<div class="content_overlay"></div>
@@ -199,69 +211,15 @@ Phasellus eget vulputate ipsum. Aliquam tincidunt et lacus non ultrices. Mauris 
 				</div>
 		  </div>
 		</div>
+</div>
+</div>
 
 <!-- // Event 
 =============================-->
 
-
-<!-- // Lightbox  for home page special promo pack-->
-</div>
-</div>
-<!-- // Wrapper =============================-->
-
-		
-<!--Login 
-=============================-->
-<!--
-		<div id="login" class="item">
-			<img src="assets/img/8.jpg"  alt="the Paxton Gipsy Hill"  class="fullBg">
-			<div class="content">
-            
-				<div class="content_overlay"></div>
-				<div class="content_inner" >
-                <div class="row contentscroll">
-	<div class="container col-md-12">
-          <div class="col-md-6 empty">&nbsp;</div>
-		  			
-                          <div class="col-md-6 content_text">
-                          <div id="reservations">
-                           <h1>Reservation</h1>
-                           <form id="reservation_form" class="reserve_form pad_top13" action="#" method="post">
-			<p>You can make a reservation by filling out the form below, Please note that reservations are only confirmed once we check availability.</p>
-			<h4>Pick your Date & Time</h4>
-			
-			<div class="clearfix date_mar">
-                <div class="input-group date form_datetime" data-date="" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                    <input name="dt" type="text" value="" readonly>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>                </div>
-				<input type="hidden" id="dtp_input1" value="" />
- 				 </div>
-    	
-			<h4>Reservation Details</h4>
-			<div class="clearfix reserve_form"> 
-				<input type="text" name="name" class="validate['required'] textbox1" placeholder="* Name : "
-                    onfocus="this.placeholder = ''" onBlur="this.placeholder = '* Name :'" />
-				<input type="text" name="email"  class="validate['required','email']  textbox1"
-                    placeholder="* Email : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Email :'" />
-				<input type="text" name="phone" class="validate['required','phone']  textbox1"
-                    placeholder="* Phone : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Phone :'" />
-				<textarea name="message" class="validate['required'] messagebox1"
-                    placeholder="* Message : " onFocus="this.placeholder = ''" onBlur="this.placeholder = '* Message :'"></textarea>
-				<input id="submitBtn" value="book a table" name="Confirm" type="submit" class="submitBtn">
-                </div>
-				</form>
-	</div>
-                          </div>
-    </div>
-                </div>
-				</div>
-		  </div>
-		</div>      
--->
-
 <script>
 	var url = "<?=base_url();?>";
+	var b_url = "<?=base_url();?>";
 	var site_url = "<?=site_url();?>";
 </script>
 
@@ -302,9 +260,6 @@ Phasellus eget vulputate ipsum. Aliquam tincidunt et lacus non ultrices. Mauris 
 <!-- Cycle Slider Gallery End-->
 
 <!--SuperSized Gallery-->
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.3.2.7.min-1.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized.shutter.min.js"></script>
-<script type="text/javascript" src="<?=base_url();?>assets/js/supersized_custom.js"></script>
 <!--SuperSized Gallery End-->
 
 <!-- Filter Gallery And PrettyPhoto-->
